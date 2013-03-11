@@ -1,0 +1,89 @@
+// Load the SDK Asynchronously - this code is what facebook says to use, but I don't like it
+	  (function(d){
+		 var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+		 if (d.getElementById(id)) {return;}
+		 js = d.createElement('script'); js.id = id; js.async = true;
+		 js.src = "https://connect.facebook.net/en_US/all.js";
+		 ref.parentNode.insertBefore(js, ref);
+	   }(document));
+
+      // Init the SDK upon load
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : Facebook_appid, // App ID
+          channelUrl : '//'+window.location.hostname+'/channel.html', // Path to your Channel File
+          status     : true, // check login status
+          cookie     : true, // enable cookies to allow the server to access the session
+          xfbml      : true  // parse XFBML
+        });
+
+        // listen for and handle auth.statusChange events
+        FB.Event.subscribe('auth.statusChange', function(response) {
+          if (response.authResponse) {
+			if (response.status === 'connected') {
+				// the user is logged in and has authenticated your
+				// app, and response.authResponse supplies
+				// the user's ID, a valid access token, a signed
+				// request, and the time the access token 
+				// and signed request each expire
+				uid = response.authResponse.userID;
+				updateQRcode(uid);
+				
+				var accessToken = response.authResponse.accessToken;
+				debug.debug("APP: FB Login successfully connected: userid: " + uid + " access token: " + accessToken);
+				
+				// user has auth'd your app and is logged into Facebook
+				if( !_getLoginInfo() )
+				{
+					FB.api('/me', function(me){
+					  if (me.name) {
+						//username = me.name;
+						setLoginInfo(me.name,uid);
+						// now refresh login-dependent data from the server
+						localDataUpdate();
+						startSubscription();
+						debug.debug("APP: FB Login successfully connected: UPDATED LOCAL DATA COMPLETE" + userid );
+				
+						$(document).trigger('app:loggedin', {username:me.name,userid:uid});
+						// RAF: TBD: save login in localStore??
+					  }
+					});
+				}
+				else // we got it already
+				{
+					// now refresh login-dependent data from the server
+					localDataUpdate();
+					startSubscription();
+					debug.debug("APP: FB Login successfully connected: UPDATED LOCAL DATA COMPLETE" + userid );
+					
+					$(document).trigger('app:loggedin', {username:username,userid:uid});
+				}
+			  } else if (response.status === 'not_authorized') {
+				// the user is logged in to Facebook, 
+				// but has not authenticated your app
+				updateQRcode(false);
+				clearLoginInfo();
+				stopSubscription();
+				$(document).trigger('app:loggedout', response.status);
+				
+				debug.debug("APP: FB NOT AUTHORIZED clearing out local QR code");
+			  } else {
+				// the user isn't logged in to Facebook.
+				updateQRcode(false);
+				clearLoginInfo();
+				stopSubscription();
+				$(document).trigger('app:loggedout', response.status);
+				
+				debug.debug("APP: FB LOGGED OUT FOR UNKNOWN REASON clearing out local QR code");
+			  }
+          } else {
+            // user has not auth'd your app, or is not logged into Facebook
+			clearLoginInfo();
+			updateQRcode(false);
+			stopSubscription();
+    		$(document).trigger('app:loggedout', 'not_logged_in');
+		
+			debug.debug("APP: FB login INVALID RESPONSE...clearing out local QR code");
+          }
+        });
+      } 

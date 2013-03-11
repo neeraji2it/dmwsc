@@ -1,0 +1,10 @@
+ed_lloyd:
+  id: 1
+  provider: "foo"
+  uid: "e.loyd"
+  first_name: "Edward"
+  last_name: "Lloyd"
+  oauth_token: "token_token"
+  oauth_expires_at: <%= Time.zone.now.advance(:days => 1) %>
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>

@@ -1,0 +1,15 @@
+<h2>Now Logged in As <%= @customer.first_name -%> <%= @customer.last_name -%></h2>
+
+<%= link_to "proceed to site", "/" %><br />
+<%= link_to "Sign Out", signout_path -%><br />
+<%= link_to "back to customer list", :controller => :customer, :action => :index %>
+
+
+<h3>User Details</h3>
+<%= @customer.id -%><br />
+<%= @customer.provider -%><br />
+<%= @customer.uid -%><br />
+<%= @customer.first_name -%><br />
+<%= @customer.last_name -%><br />
+<%= @customer.created_at -%>
+<%= @customer.updated_at -%><br />

@@ -1,0 +1,27 @@
+<p>Thank you for visiting Workshop Cafe!</p>
+<p>Here is your visit summary.</p>
+
+<table style="width:100%">
+  <tbody>
+    <tr>
+      <td style="font-weight:bold;">Table Time</td>
+      <td style="text-align:right">
+        <%= 
+            # NJS - DRY this
+            mm, ss = @time_sheet.total_time.divmod(60)
+            hh, mm = mm.divmod(60)
+            "#{hh}h #{mm}m #{ss.ceil}s"
+            %>
+      </td>
+    </tr>
+    <tr>
+      <%
+        # NJS - put the charge in dynamically
+        %>
+      <td style="font-weight:bold">Charges($2/hr)</td>
+      <td style="text-align:right"><%= cents_to_currency(@time_sheet.charge) -%></td>
+    </tr>
+  </tbody>
+</table>
+ 
+<a href="#" data-rel="back" data-role="button" data-inline="false" data-theme="c">Done</a>

@@ -1,0 +1,44 @@
+<% if @customer.blank? %>
+  <h2>Not logged in</h2>
+<% else %>
+  <h2>
+    Now Logged in As <%= @customer.first_name -%> <%= @customer.last_name -%>
+    <%= link_to "Sign Out", signout_path -%>
+  </h2>
+<% end %>
+
+<h2>Customers</h2>
+<table>
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>provider</th>
+      <th>uid</th>
+      <th>first_name</th>
+      <th>last_name</th>
+      <th>created_at</th>
+      <th>updated_at</th>
+      <th>login as</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @all_customers.each do |c| %>
+      <tr>
+        <td><%= c.id -%></td>
+        <td><%= c.provider -%></td>
+        <td><%= c.uid -%></td>
+        <td><%= c.first_name -%></td>
+        <td><%= c.last_name -%></td>
+        <td><%= c.created_at -%></td>
+        <td><%= c.updated_at -%></td>
+        <td>
+          <% if @customer && @customer.id == c.id %>
+            <%= link_to "Sign Out", signout_path -%>
+          <% else %>
+            <%= link_to "login as", :controller => :customer, :action => :login_as, :id => c.id -%>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

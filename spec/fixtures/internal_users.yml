@@ -1,0 +1,27 @@
+jerry_baldwin:
+  id: 1
+  first_name: "Jerry"
+  last_name: "Baldwin"
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
+
+gordon_bowker:
+  id: 2
+  first_name: "Gordon"
+  last_name: "Bowker"
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
+
+zev_siegl:
+  id: 3
+  first_name: "Zev"
+  last_name: "Siegl"
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
+
+howard_schultz:
+  id: 4
+  first_name: "Howard"
+  last_name: "Schultz"
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>

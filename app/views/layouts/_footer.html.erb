@@ -1,0 +1,13 @@
+<% section_classes = 'class="ui-state-persist ui-btn-active"' %>
+
+<div data-role="footer" data-id="foot" data-position="fixed">
+  <div data-role="navbar" data-grid="d" class="nav-site">
+    <ul>
+      <li><a class="navitem" href="#index_out" id="home_nav" data-icon="custom" data-prefetch="true" <%= section_classes if current_section = 'index' -%>>Home</a></li>
+      <li><a class="navitem" href="#order" id="order_nav" data-icon="custom" data-prefetch="true" <%= section_classes if current_section = 'order' -%>>Order</a></li>
+      <li><a class="navitem" href="#my_bill" id="bill_nav" data-icon="custom" data-prefetch="true" <%= section_classes if current_section = 'my_bill' -%>>My Bill</a></li>
+      <li><a class="navitem" href="#community" id="account_nav" data-icon="custom" data-prefetch="true" <%= section_classes if current_section = 'community' -%>>Community</a></li>
+      <li><a class="navitem" href="#more" id="more_nav" data-icon="custom" data-prefetch="true" <%= section_classes if current_section = 'more' -%>>More</a></li>
+    </ul>
+  </div>
+</div>

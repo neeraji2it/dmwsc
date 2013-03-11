@@ -1,0 +1,73 @@
+<html> 
+	<head> 
+	<title>Workshop Cafe</title> 
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./css/workshop.min.css" />
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
+	<link rel="stylesheet" type="text/css" media="all" href="./css/main.css" />
+	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
+	
+		
+</head> 
+<body> 
+
+<!-- Start of first page -->
+<div data-role="page" data-add-back-btn="true" id="community">
+
+	<div data-role="header" data-id="head" data-position="fixed">
+		<h1>Poll</h1>
+	</div><!-- /header -->
+
+	<div data-role="content">	
+		
+			    <fieldset data-role="controlgroup" data-mini="true" id="question">
+			    	<legend>Which coffee purveyor do you prefer?</legend>
+			         	<input type="radio" name="radio-choice-1" id="radio-choice-1" value="choice-1" checked="checked" />
+			         	<label for="radio-choice-1">Blue Bottle</label>
+
+			         	<input type="radio" name="radio-choice-1" id="radio-choice-2" value="choice-2"  />
+			         	<label for="radio-choice-2">Equator</label>
+
+						<input type="radio" name="radio-choice-1" id="radio-choice-3" value="choice-3"  />
+			         	<label for="radio-choice-3">Graffeo</label>
+
+			         	<input type="radio" name="radio-choice-1" id="radio-choice-4" value="choice-4"  />
+			         	<label for="radio-choice-4">Intelligentsia</label>
+
+			         	<input type="radio" name="radio-choice-1" id="radio-choice-5" value="choice-5"  />
+			         	<label for="radio-choice-5">Ritual Roasters</label>
+			         	
+			         	<input type="radio" name="radio-choice-1" id="radio-choice-6" value="choice-6"  />
+			         	<label for="radio-choice-6">Stumptown</label>
+			         	
+			         	<input type="radio" name="radio-choice-1" id="radio-choice-7" value="choice-7"  />
+			         	<label for="radio-choice-7">Other</label>
+			         	
+			         	<div data-role="fieldcontain" class="ui-hide-label">
+							<label for="other_value">Other Value</label>
+							<input type="text" name="username" id="other_value" value="" placeholder="other purveyor"/>
+						</div>
+			    </fieldset>
+			    <fieldset class="ui-grid-a"><input type="submit" value="Submit" data-theme="c"/></fieldset>
+
+	</div><!-- /content -->
+
+	<div data-role="footer" data-id="foot" data-position="fixed">
+		<div data-role="navbar" data-grid="d" class="nav-site">
+		<ul>
+			<li><a rel="external" href="index.html" id="home_nav" data-icon="custom" data-prefetch="true">Home</a></li>
+			<li><a rel="external" href="order.htm" id="order_nav" data-icon="custom" data-prefetch="true">Order</a></li>
+			<li><a rel="external" href="index.html#my_bill" id="bill_nav" data-icon="custom" data-prefetch="true">My Bill</a></li>
+			<li><a rel="external" href="community.htm" id="account_nav" data-icon="custom" data-prefetch="true" class="ui-btn-active ui-state-persist">Community</a></li>
+			<li><a rel="external" href="index.html#more" id="more_nav" data-icon="custom" data-prefetch="true">More</a></li>
+		</ul>
+		</div>
+	</div><!-- /footer -->
+</div><!-- /page -->
+
+
+
+</body>
+</html>

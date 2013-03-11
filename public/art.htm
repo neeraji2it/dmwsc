@@ -1,0 +1,69 @@
+<!DOCTYPE html> 
+<html> 
+	<head> 
+	<title>Workshop Cafe</title> 
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./css/workshop.min.css" />
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
+	<link rel="stylesheet" type="text/css" media="all" href="./css/main.css" />
+	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
+</head> 
+<body> 
+
+<!-- Start of first page -->
+<div data-role="page"id="community" data-add-back-btn="true">
+
+	<div data-role="header" data-id="head" data-position="fixed">
+		<h1>Digital Art</h1>
+	</div><!-- /header -->
+
+	<div data-role="content">	
+		<ul data-role="listview" data-inset="true" data-split-icon="check" data-split-theme="g" data-divider-theme="c" id="art">
+				<li data-role="list-divider">Current Selection</li>
+				<li><a href="#">
+				<img src="./images/art/painting2_th.jpg" />
+				<h3>Michelle's picture</h3>
+				<p>Impression Sunrise, Claude Monet</p><span class="ui-li-count">25</span>
+				</a><a href="vote.htm" data-rel="dialog" data-transition="slideup">Vote for this picture
+			</a></li>
+			<li data-role="list-divider">Other Options</li>
+			<li><a href="#">
+				<img src="./images/art/photo1_th.jpg" />
+				<h3>Rich's picture</h3>
+				<p>Bora Bora, Tahiti</p><span class="ui-li-count">12</span>
+			</a><a href="vote.htm" data-rel="dialog" data-transition="slideup">Vote for this picture
+			</a></li>
+			<li data-theme="c"><a href="#">
+				<img src="./images/art/painting3_th.jpg" />
+				<h3>Your picture</h3>
+				<p>Heading Home, Veerakeat Tongpaiboon</p><span class="ui-li-count">11</span>
+				</a><a href="vote.htm" data-rel="dialog" data-transition="slideup">Vote for this picture
+			</a></li>
+			<li><a href="#">
+				<img src="./images/art/photo2_th.jpg" />
+				<h3>Geoff's picture</h3>
+				<p>Hallstatt, Austria</p><span class="ui-li-count">10</span>
+				</a><a href="vote.htm" data-rel="dialog" data-transition="slideup">Vote for this picture
+			</a></li>
+			</ul>
+	</div><!-- /content -->
+
+	<div data-role="footer" data-id="foot" data-position="fixed">
+		<div data-role="navbar" data-grid="d" class="nav-site">
+		<ul>
+			<li><a rel="external" href="index.html" id="home_nav" data-icon="custom" data-prefetch="true">Home</a></li>
+			<li><a rel="external" href="order.htm" id="order_nav" data-icon="custom" data-prefetch="true">Order</a></li>
+			<li><a rel="external" href="index.html#my_bill" id="bill_nav" data-icon="custom" data-prefetch="true">My Bill</a></li>
+			<li><a rel="external" href="community.htm" id="account_nav" data-icon="custom" data-prefetch="true" class="ui-btn-active ui-state-persist">Community</a></li>
+			<li><a rel="external" href="index.html#more" id="more_nav" data-icon="custom" data-prefetch="true">More</a></li>
+		</ul>
+		</div>
+	</div><!-- /footer -->
+</div><!-- /page -->
+
+
+
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html> 
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<title>Multi-page template</title> 
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.css" />
+	<link rel="stylesheet" href="./css/workshop.min.css" />
+	<link rel="stylesheet" type="text/css" media="all" href="./css/main.css" />
+	<link rel="stylesheet" type="text/css" media="all" href="css/wsc-mobile.css" />
+	
+	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.js"></script>
+	<script src="js/logging.js"></script>
+	<script src="js/qrcode.js"></script>
+	<script src="js/app.js"></script>
+	<script src="js/wsc-core.js"></script>
+	
+	<script>
+	function updateQrInput(qrinput) {
+		//var elem = document.getElementById("msg");
+		//elem.value = qrinput;
+		$('#qrimg').html(qrinput);
+	}
+	
+	$(document).ready( function() {
+		console.debug("index: ready");
+		$(document).bind('data:init', function(event, e) {
+			console.info("data init event received: " + e.message);
+			//$('#count').html(e.message);
+		});
+		$(document).bind('app:loggedin', function(event, e) {
+			console.info("loggedin event received");
+			$('#fbprofilepic').html('<img src="http://graph.facebook.com/' + e.userid + '/picture" />');
+			$('#fbprofilepic').addClass("avatar");
+		});
+		
+		$("#xcheck_in").live("click",
+			function()
+			{
+				var nowinner = new Date().getTime();
+				alert('on click: ' + this.id + ' ' + nowinner);
+				$(document).trigger('web:check_in', {time:nowinner});
+
+				return true;
+			}
+		);
+		
+		$('#popup').bind( 'pageshow', function(e, data) 
+		{
+			console.info("sending qr code show...");
+			$(document).trigger('web:qrcode_page.pageshow', $("#qrimg"));
+		});
+		
+		$(document).bind("app:updateQRcode", function(e){
+			// debug
+			console.debug("app:updateQRcode received..." + e.message);
+			updateQrInput(e.message);
+			console.debug("updated QR image...");
+			$('#close_qrcode').html("<a id='close_qrcode' href='index_in.htm' data-role='button' data-inline='false' data-theme='c'>Done</a>");
+			checked_in = true;
+			//$.mobile.hidePageLoadingMsg();
+		});
+		
+	});
+	</script>
+</head> 
+
+	
+<body> 
+
+<!-- Start of first page: #one -->
+<div data-role="page" id="one">
+
+	<div data-role="header">
+		<h1>Multi-page</h1>
+	</div><!-- /header -->
+
+	<div data-role="content" >	
+		<p><a href="#popup" data-role="button" data-rel="dialog" data-transition="flip">Show page "popup" (as a dialog)</a></p>
+	</div><!-- /content -->
+	
+	<div data-role="footer" data-theme="c">
+		<h4>Page Footer</h4>
+	</div><!-- /footer -->
+</div><!-- /page one -->
+
+<!-- Start of third page: #popup -->
+<div data-role="page" id="popup">
+
+	<div data-role="header" data-theme="c">
+		<h1>Dialog</h1>
+	</div><!-- /header -->
+
+	<div data-role="content" data-theme="c">	
+		<h2>Popup</h2>
+		<p><div id='qrimg'></div></p>
+		<p><a href="#one" data-rel="back" data-role="button" data-inline="true" data-icon="back">Back to page "one"</a></p>	
+	</div><!-- /content -->
+	
+	<div data-role="footer">
+		<h4>Page Footer</h4>
+	</div><!-- /footer -->
+</div><!-- /page popup -->
+
+</body>
+</html>

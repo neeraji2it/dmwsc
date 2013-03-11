@@ -1,0 +1,99 @@
+<div data-role="dialog" data-transition="flip">
+  <div data-role="header" data-theme="c">
+    <h1>Pay Now</h1>    
+  </div>
+
+  <div data-role="content" data-theme="c">
+
+    <%= form_tag url_for(:controller => :bill, :action => :create), :id => :payment_form do -%>
+      <div class="payment_errors" style="color:red"></div>
+      <%= hidden_field_tag :description, @customer.id -%>
+      <%= hidden_field_tag :amount, -1 * @customer.balance_due -%>
+
+      <fieldset data-role="fieldcontain">
+        <table>
+          <tr>
+            <td><%= label_tag 'Charge Amount' -%></td>
+            <td><%= @customer.balance_due -%></td>
+          </tr>
+          <tr>
+            <td><%= label_tag 'Card Number' -%></td>
+            <td><%= text_field_tag nil, '4242424242424242', :class => :card_number, :autocomplete => :off, "data-mini" => :true -%></td>
+          </tr>
+          <tr>
+            <td><%= label_tag 'CVC' -%></td>
+            <td><%= text_field_tag nil, '123', :class => :card_cvc, :autocomplete => :off, "data-mini" => :true, :style => "width:30%" -%></td>
+          </tr>
+          <tr>
+            <td><%= label_tag 'Expiration' -%></td>
+            <td>
+              <fieldset data-role="controlgroup" data-type="horizontal">
+                <%= date_select("card", "expiry", 
+                                {:start_year => Time.now.year,
+                                  :end_year => Time.now.year + 10,
+                                  :add_month_numbers => true,
+                                  :use_short_month => true,
+                                  :order => [:month, :year],
+                                  :discard_day => true, 
+                                  :prompt => true,
+                                  :include_blank => false},
+                                {"data-mini" => true}
+                                ) -%>
+              </fieldset>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <%= submit_tag 'Submit Payment', :class => :submit_button, "data-mini" => :true -%>
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+    <% end %>
+  </div>
+
+<%= javascript_tag do -%>
+  $(document).ready(function() {
+
+  $("#payment_form").submit(function(event) {
+    // disable the submit button to prevent repeated clicks
+    $('.submit_button').attr("disabled", "disabled");
+
+    Stripe.createToken({
+        number: $('.card_number').val(),
+        cvc: $('.card_cvc').val(),
+        exp_month: $('#card_expiry_2i').val(),
+        exp_year: $('#card_expiry_1i').val()
+    }, stripeResponseHandler);
+
+    // prevent the form from submitting with the default action
+    return false;
+  });
+
+  function stripeResponseHandler(status, response) {
+    if (response.error) {
+        // show the errors on the form
+        $(".payment_errors").text(response.error.message);
+        $(".submit_button").removeAttr("disabled");
+    } else {
+        var form$ = $("#payment_form");
+        // token contains id, last4, and card type
+        var token = response['id'];
+        // insert the token into the form so it gets submitted to the server
+        form$.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
+        // and submit
+        // form$.get(0).submit();
+
+
+        $.post(form$.attr('action'), form$.serialize(), 
+          function(data) {
+            // NJS - need to do something w/ the result
+            form$.closest('div[data-role="dialog"]').dialog('close');
+          }
+        );
+    }
+  }
+});
+<% end -%>
+
+</div>

@@ -1,0 +1,96 @@
+<!DOCTYPE html> 
+<html> 
+	<head> 
+	<title>Message Test</title> 
+	<script src="js/logging.js"></script>
+
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.css" />
+	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<div pub-key="pub-8d0b0820-800a-4371-a387-610ec74cc2ab" sub-key="sub-4ea850a1-e566-11e1-8621-3b5494a9b3ab" ssl="off" origin="pubsub.pubnub.com" id="pubnub"></div>
+	<script src="http://cdn.pubnub.com/pubnub-3.1.min.js"></script>
+	<script>
+	//
+	// order status notifications from Salesforce/ordering system
+	// when the user submits an order, they should receive an alert
+	// when the user's order is confirmed, they should receive an alert
+	// when the user pays, they should receive an alert
+	// TODO: others?
+	//
+	function startSubscription(){
+		
+		// LISTEN FOR MESSAGES
+		PUBNUB.subscribe({
+			channel    : "wsc-notifications-671233828",      // CONNECT TO THIS CHANNEL.
+	 
+			restore    : false,              // STAY CONNECTED, EVEN WHEN BROWSER IS CLOSED
+											 // OR WHEN PAGE CHANGES.
+	 
+			callback   : function(message) { // RECEIVED A MESSAGE.
+				console.info('Message received type: ' + typeof(message));
+				if( typeof(message) === 'object' )
+				{
+					console.info('object received...');
+
+					//message = jQuery.parseJSON( message );
+					if (message.hasOwnProperty("order_status")) {
+						console.info('order status received...');
+						var oArray = message.order_status;
+						for(i=0; i<oArray.length; i++ )
+						{
+							var order = oArray[i];
+							console.debug('***********************************');
+							console.debug('order status::table name: ' + order.table_name);
+							console.debug('order status::table status: ' + order.table_status);
+							console.debug('order status::table rate: ' + order.table_rate_per_min);
+							console.debug('order status::table time: ' + order.invoiced_time);
+							console.debug('order status::table amount: ' + order.invoiced_amount);
+							console.debug('order status::start time: ' + order.order_start_time);
+							console.debug('order status::end time: ' + order.order_end_time);
+							console.debug('***********************************');
+							// RAF TODO SOME FANCY STYLIN! FADE IN...sound?
+							$('#current_notifications').html('<div class="status">Your order for ' + order.table_name + ' is now ' + order.table_status + '</div>');
+						}
+					}
+					else
+					{
+						console.info('other object received...');
+						for ( var prop in message ) {
+							console.info(prop + ":" + message[prop]);
+						}
+					}
+				}
+				else if( typeof(message) === 'string' )
+				{
+					console.info('string message: ' + message);
+				}
+			},
+	 
+			disconnect : function() {        // LOST CONNECTION.
+				alert(
+					"Connection Lost." +
+					"Will auto-reconnect when Online."
+				)
+			},
+	 
+			reconnect  : function() {        // CONNECTION RESTORED.
+				console.debug("And we're Back!")
+			},
+	 
+			connect    : function() {        // CONNECTION ESTABLISHED.
+				console.debug("about to send test message...");
+				PUBNUB.publish({             // SEND A MESSAGE.
+					channel : "wsc-notifications-671233828",
+					message : "Loaded Notification Channel for user 671233828"
+				});
+				console.debug("test message sent!");
+			}
+		}); // end subscribe call
+	} // end fn definition
+	
+	startSubscription();
+	</script>
+	</head>
+<body>
+	<div id="current_notifications"></div>
+</body>
+</html>

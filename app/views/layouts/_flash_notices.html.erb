@@ -1,0 +1,17 @@
+<%
+# NJS - make actual classes and stuff for these
+%>
+<% if flash[:notice] || flash[:error] %>
+  <div class="ui-body-e" data-mini="true">
+    <% if flash[:notice] %>
+      <p class="notice"><%= flash[:notice] %></p>
+    <% end %>
+    <% if flash[:error] %>
+      <p class="error"><%= flash[:error] %></p>
+    <% end %>
+  </div>
+<% end %>
+
+<div data-role="popup" id="notificationsPopup">
+  <p><p>
+</div>

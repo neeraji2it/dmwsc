@@ -1,0 +1,221 @@
+<div id="componentDiv"></div>
+<!-- Start of first page -->
+<div data-role="page" id="index_out">
+  <%= render :partial => "layouts/page_header", :locals => { :page_title => 'Workshop Cafe' } %>
+  
+  <div data-role="content">
+    <div id="home_paying_indicator">
+      <div class="paying_indicator"></div>
+    </div>
+
+    <div id="states">
+      <div id="stateLoading">
+        Loading ...
+      </div>
+
+      <%
+        # NJS figure out which of these actually need to data-rel dialogs and data-transitions
+        # they don't all seem necessary
+        %>
+      <div id="stateInAndSeated" style="display:none">
+        <p><a href="javascript:void(0)" id="check_out_seated" data-role="button" data-rel="dialog" data-transition="flip" data-theme="c">Exit the Workspace</a></p>
+        <p>Seat #<span id="seat_number"></span> <a id="change_seat" href="#seats" data-rel="dialog" data-transition="pop" data-theme="c">change</a></p>
+      </div>
+      <div id="stateInAndRoaming"  style="display:none">
+        <p><a href="javascript:void(0)" id="check_out_roaming" data-role="button" data-rel="dialog" data-transition="flip" data-theme="c">Exit the Workspace</a></p>
+        <p><a id="select_seat" href="#seats" data-role="button" data-rel="dialog" data-transition="pop" data-theme="b">Tell Us Your Seat</a></p>
+      </div>
+      <div id="stateOut" style="display:none">
+        <p><a href="javascript:void(0);" id="check_in" data-role="button" data-theme="b">Enter the Workspace</a></p>
+        <p><a id="reserve" href="#reserve_seat" data-role="button" data-theme="c">Reserve a Seat</a></p>
+      </div>
+
+      <div id="stateSeatReserved" style="display:none">
+        <p><a id="btn_tell_us_here" href="javascript:void(0);" data-role="button" data-theme="b">Tell Us When You Get Here</a></p>
+        <p><a id="check_out_reserved" href="javascript:void(0);" data-role="button" data-theme="c">Cancel Reservation</a></p>
+      </div>
+      <div id="stateSeatRequested" style="display:none">
+        <p><a href="#cancel_rsvp" id="cancel_reserve_seat" data-role="button" data-rel="dialog" data-transition="flip" data-theme="c">Reservation Pending...Cancel?</a></p>
+      </div>
+    </div>
+
+    <p><div id="fbprofilepic" class="avatar"><%= image_tag("https://graph.facebook.com/#{@customer.uid}/picture") -%></div></p>
+  </div><!-- /content -->
+
+  <%= render :partial => "layouts/footer", :locals => { :current_section => 'index' } %>
+</div>
+
+<div data-role="dialog" id="cancel_rsvp">
+  <%= render :partial => "layouts/dialog_header", :locals => { :dialog_title => 'Cancel Reservation' } %>
+
+  <div data-role="content" data-theme="c" id="qr">  
+    <p style="margin-top: 0px; margin-bottom: 0px;">Are you sure you wish to cancel your reservation?</p>       
+    <p><a id="btn_confirm_cancel_rsvp" href="#" data-rel="back" data-role="button" data-inline="false" data-theme="c">I'm Sure</a></p>
+    <p><a id="btn_dont_cancel_rsvp" href="#" data-rel="back" data-role="button" data-inline="false" data-theme="c">Oops! Keep my RSVP!</a></p>
+  </div><!-- /content -->
+</div><!-- /popup -->
+
+<div data-role="page" id="reserve_seat">
+  <%= render :partial => "layouts/dialog_header", :locals => { :dialog_title => 'Want Seat?' } %>
+
+  <%= render :partial => "content/seat_selector" %>
+
+  <%= render :partial => "layouts/footer", :locals => { :current_section => 'index' } %>
+</div><!-- /content -->
+
+<div data-role="dialog" id="seats">
+
+  <%= render :partial => "layouts/dialog_header", :locals => { :dialog_title => 'Got Seat?' } %>
+
+  <div data-role="content" data-theme="c">
+    <p>By telling us you've got this seat taken... nobody else can reserve it while you've got it. That's our promise.</p>
+    <p>Thanks!</p>
+
+    <%= form_tag url_for(:controller => :time_sheet, :action => :update_seat), :id => :update_seat_form do -%>
+      <fieldset data-role="fieldcontain">
+        <table class="center">
+          <tr>
+            <td>
+              <%= label_tag 'Your Seat #:' -%>
+            </td>
+            <td>
+              <%= select_tag "seat_numbers", options_from_collection_for_select(Seat.find(:all), 'id', 'id'), :include_blank => true -%>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" style="padding-top:30px">
+              <%= submit_tag 'Submit', :class => :submit_button, "data-theme" => "b" -%>
+            <td>
+          </tr>
+        </table>
+      </fieldset>
+    <% end %>
+  </div>
+</div><!-- /dialog -->
+
+<div data-role="page" id="order">
+
+  <%= render :partial => "layouts/page_header", :locals => { :page_title => 'Place an Order' } %>
+
+  <div data-role="content">
+    <p><a href="javascript:void(0)" data-role="button" data-theme="b" id="hailStaff">Hail Staff</a></p>
+    <p><a href="javascript:void(0)" data-role="button" data-theme="b" id="cancelHail">Cancel Hail...</a></p>
+    <p><a href="tel:+14158134777" data-role="button" data-rel="dialog" data-transition="flip" data-theme="b">vMail Order</a></p>
+    <p><a href="sms:+14158134777" data-role="button" data-rel="dialog" data-transition="flip" data-theme="b">Text Order</a></p>
+    <p><a href="mailto:order@workshopcafe.com?subject=What%20I%20want..." data-role="button">Email Us</a></p>
+    <p><a href="tel:+14156925556" data-role="button">Call Us</a></p>
+  </div><!-- /content -->
+
+
+  <%= render :partial => "layouts/footer", :locals => { :current_section => 'order' } %>
+</div><!-- /page -->
+
+<div data-role="page" id="my_bill">
+  <%= render :partial => "layouts/page_header", :locals => { :page_title => 'My Bill' } %>
+
+  <div data-role="content">
+    <p>You current balance is <strong><span id="my_bill_balance"></span></strong>
+    </p>
+    <a data-rel="dialog" href="<%= url_for :controller => :bill, :action => :index -%>" data-role="button" data-mini="true" data-inline="true" data-theme="c">Pay Now</a>
+  </div><!-- /content -->
+  
+  <%= render :partial => "layouts/footer", :locals => { :current_section => 'my_bill' } %>
+</div><!-- /page -->
+
+<div data-role="page" id="community">
+
+  <%= render :partial => "layouts/page_header", :locals => { :page_title => 'Community' } %>
+
+  <div data-role="content"> 
+    <h3>We're listening! Vote to change Workshop.</h3>
+    <ul data-role="listview" data-inset="true" id="questions">
+      <li><a href="poll.htm" data-transition="slide" data-inline="true" ><img src="./images/glyphicons/glyphicons_151_edit.png" alt="Pending" class="ui-li-icon ui-corner-none">Which coffee vendor do you prefer?</a></li>
+      <li><a href="#" class="completed"><img src="./images/glyphicons/glyphicons_150_check.png" alt="Completed" class="ui-li-icon ui-corner-none">What additional services would you use?</a></li>
+    </ul>
+    <h3>Express yourself!</h3>
+    <ul data-role="listview" data-inset="true" id="expressions">
+      <li><a href="art.htm" data-transition="slide" data-inline="true" ><img src="./images/glyphicons/glyphicons_159_picture.png" alt="Pending" class="ui-li-icon ui-corner-none">Choose Digital Art</a></li>
+      <li><a href="#" class="completed"><img src="./images/glyphicons/glyphicons_017_music.png" alt="Completed" class="ui-li-icon ui-corner-none">Pick a Playlist</a></li>
+      <li><a href="#" class="completed"><img src="./images/glyphicons/glyphicons_390_facebook.png" alt="Completed" class="ui-li-icon ui-corner-none">Tell Friends You're Here</a></li>
+    </ul>
+  </div><!-- /content -->
+
+  <%= render :partial => "layouts/footer", :locals => { :current_section => 'community' } %>
+</div><!-- /page -->
+
+<div data-role="dialog" id="visit_summary">
+  <%= render :partial => "layouts/dialog_header", :locals => { :dialog_title => 'Check Out' } %>
+
+  <div data-role="content" data-theme="c">
+  </div><!-- /content -->
+</div><!-- /popup -->
+
+<div data-role="page" id="more">
+  <%= render :partial => "layouts/page_header", :locals => { :page_title => 'More' } %>
+
+  <div data-role="content"> 
+    <ul data-role="listview" data-theme="c">
+      <li><a href="#our_people">Meet Our People</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="#">Account</a></li>
+    </ul>
+
+    <h2>Force Checkout (Alpha)</h2>
+    <div id="force-checkout">
+      <div id="force-checkout-div">
+        <%= link_to "Click here to force out", signout_path, :data => {:ajax => "false"} %>
+      </div>
+    </div>
+  </div><!-- /content -->
+
+  <%= render :partial => "layouts/footer", :locals => { :current_section => 'more' } %>
+</div><!-- /page -->
+
+<div data-role="page" id="our_people">
+  <%= render :partial => "layouts/page_header", :locals => { :page_title => 'Workshop Cafe' } %>
+  
+  <div data-role="content">
+    <div class="employee clearfix">
+      <img src="./images/employees/emp1.png" />
+      <div class="bio">
+        <h3>James</h3>
+        <p>I'm a Sophomore at USF and an Art History major.</p>
+
+        <p>I like to spend free time doodling on Aobe Sketch and Photoshop.<br />
+          I love bikes! Fixing bikes, riding bikes, you name it.<br />
+          I speak Russian.</p>
+
+        <p>Ask me about my craziest birthday party.</p> 
+      </div>
+    </div>
+    <div class="employee clearfix">
+      <img src="./images/employees/emp2.png" />
+      <div class="bio">
+  <h3>Taylor</h3>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.Duis auctor mollis iaculis.</p>
+  <p>Aenean tincidunt convallis urna ac euismod. <br />Maecenas sed consequat nunc. </p>
+  <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+      </div>
+    </div>
+    <div class="employee clearfix">
+      <img src="./images/employees/emp3.png" />
+      <div class="bio">
+  <h3>Sean</h3>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.Duis auctor mollis iaculis.</p>
+  <p>Aenean tincidunt convallis urna ac euismod. <br />Maecenas sed consequat nunc. </p>
+  <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+      </div>
+    </div>
+    <div class="employee clearfix">
+      <img src="./images/employees/emp4.png" />
+      <div class="bio">
+  <h3>Sandy</h3>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.Duis auctor mollis iaculis.</p>
+  <p>Aenean tincidunt convallis urna ac euismod. <br />Maecenas sed consequat nunc. </p>
+  <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+      </div>
+    </div>
+  </div><!-- /content -->
+
+  <%= render :partial => "layouts/footer", :locals => { :current_section => 'index' } %>
+</div>

@@ -1,0 +1,23 @@
+montgomery_seat_rate_under_ten_do:
+  location_id: 1
+  minutes: <%= (60.0).to_d %>
+  dollars: <%= (2.0).to_d %>
+  min_dollars: <%= (0.0).to_d %>
+
+montgomery_seat_rate_ten_to_under_twenty:
+  location_id: 1
+  minutes: <%= (180.0).to_d %>
+  dollars: <%= (10.0).to_d %>
+  min_dollars: <%= (10.0).to_d %>
+
+montgomery_seat_rate_twenty_to_under_seventy:
+  location_id: 1
+  minutes: <%= (600.0).to_d %>
+  dollars: <%= (20.0).to_d %>
+  min_dollars: <%= (20.0).to_d %>
+
+montgomery_seat_rate_seventy_or_more:
+  location_id: 1
+  minutes: <%= (2400.0).to_d %>
+  dollars: <%= (70.0).to_d %>
+  min_dollars: <%= (70.0).to_d %>

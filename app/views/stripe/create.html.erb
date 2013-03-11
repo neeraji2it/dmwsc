@@ -1,0 +1,21 @@
+<% if !params[:debug].blank? %>
+  <% if @charge.failure_message %>
+    Failed to charge your card due to: <%= charge.failure_message -%>
+  <% else %>
+    We have succesfully charged your credit card (Transaction ID: <%= @charge.id -%>)
+    <ul>
+      <li>Customer Name: <%= @charge.description -%></li>
+      <li>Amount: $<%= @charge.amount / 100 -%></li>
+      <li>Fee the Workshop had to pay on charge: $<%= @charge.fee / 100 -%></li>
+
+      <li><%= @charge.customer -%></li>
+
+    </ul>
+  <% end %>
+<% else %>
+  <div data-role="content">
+    <p>
+      Thank you. We are processing your payment.
+    </p>
+  </div>
+<% end %>

@@ -1,0 +1,88 @@
+<div data-role="content" data-theme="c" style="padding:0;">
+  <div id='adminHailPage'>
+
+
+    <h1 class='pageTitle'>Customer First Seated Hails</h1>
+
+    <br />
+    <div class="adminHailTable">
+      <table>
+        <thead>
+          <tr>
+            <th rowspan="2" class="th1">Customer</th>
+            <th rowspan="2" class="th2"></th>
+            <th colspan="2">Timestamps</th>
+            <th rowspan="2" class="th5">Elapsed time</th>
+            <th rowspan="2" class="th6">How Initiated (1st seated or HAIL?) (Resolution)</th>
+            <th rowspan="2" class="th7">Action</th>
+          </tr>
+          <tr>
+            <th class="th3">Initiated</th>
+            <th class="th4">Closed</th>
+          </tr>
+        </thead>
+        <tbody class="customerRow">
+          <% if Hail.pending.type_customer_initiated.size == 0 %>
+          <td colspan="4">no customer initiated hails</td>
+        <% end %>
+        <% Hail.pending.type_customer_initiated.each do |time| %>
+
+          <tr class="current">
+            <td rowspan="2"><%= time.customer.first_name %><br /><%= image_tag("https://graph.facebook.com/#{time.customer.uid}/picture") -%></td>
+            <td ><%= time.end_time.present? ? "Close" : "Active" %></td>
+            <td>
+              <p><%= time.start_time.strftime("%m/%d/%Y @%H:%S%p") %></p>
+            </td>
+            <td>
+              <p><%= time.end_time.strftime("%m/%d/%Y @%H:%S%p") if time.end_time.present? %></p>
+            </td>
+            <td>
+              <p><%=
+                # NJS - DRY this
+                mm, ss = time.time_sheet.total_time.divmod(60)
+                hh, mm = mm.divmod(60)
+                "#{hh}h #{mm}m #{ss.ceil}s"
+              %></p>
+            </td>
+            <td>
+              <p>1st seated</p>
+            </td>
+            <td>
+              <%= form_tag url_for(:controller => "admin/hails/#{time.id}"), :method => :put do -%>
+                <%= hidden_field_tag :id, time.id -%>
+
+                <a typy="submit" class='doneBtn button-link' style="backgroud: none;border: none;">done</a>
+              <% end %>
+            </td>
+          </tr>
+          <tr class="history">
+            <td><a class='openHistory'>History +/-</a></td>
+            <td>
+              <p>1/29/2013 @1:15pm</p>
+              <p>1/27/2013 @7:19pm</p>
+              <p>1/25/2013 @9:15pm</p>
+            </td>
+            <td>
+              <p>1/29/2013 @1:18pm</p>
+              <p>1/27/2013 @7:26pm</p>
+              <p>1/25/2013 @9:16pm</p>
+            </td>
+            <td>
+              <p>3m: 7 sec</p>
+              <p>7m: 25 sec</p>
+              <p>1m: 0 sec</p>
+            </td>
+            <td>
+              <p>HAIL (DONE)</p>
+              <p>1st seated</p>
+              <p>HAIL (cancelled)</p>
+            </td>
+            <td></td>
+          </tr>
+
+          </tbody>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>

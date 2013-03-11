@@ -1,0 +1,68 @@
+<h2>Seat Reservation Requests</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Customer Name</th>
+      <th>Status</th>
+      <th>Seat Requested</th>
+      <th>Customer Photo</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @open_reservations.size == 0 %>
+      <td colspan="4">no seat reservation requests</td>
+    <% end %>
+    <% @open_reservations.each do |sr| %>
+      <tr>
+        <td><%= sr.customer.first_name -%> <%= sr.customer.last_name -%></td>
+        <td>
+          <%= form_tag url_for(:controller => "admin/seat_reservations/#{sr.id}"), :method => :put do -%>
+            <%= hidden_field_tag :id, sr.id -%>          
+            
+            <%= select_tag "closing_reason_id", options_from_collection_for_select(SeatReservation::CLOSING_REASONS, :last, :first), {:include_blank => true} -%>
+            
+            <%= submit_tag 'submit' -%>
+          <% end %>
+        </td>
+        <td><%= "#{sr.seat.name} (id ##{sr.seat.id})" -%></td>
+        <td><%= image_tag("https://graph.facebook.com/#{sr.customer.uid}/picture") -%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<h2>Paying Customers</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Customer Name</th>
+      <th>Status</th>
+      <th>Sitting At</th>
+      <th>Customer Photo</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if TimeSheet.running.size == 0 %>
+      <td colspan="4">no paying customers ☹</td>
+    <% end %>
+    <% TimeSheet.running.each do |ts| %>
+      <tr>
+        <td><%= ts.customer.first_name -%> <%= ts.customer.last_name -%></td>
+        <td>
+          actions
+        </td>
+        <td>
+          <%= ts.current_seat ? "#{ts.current_seat.name} (id ##{ts.current_seat.id})" : "roaming" -%>
+        </td>
+        <td><%= image_tag("https://graph.facebook.com/#{ts.customer.uid}/picture") -%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br />
+<br />
+<br />
+
+<%= link_to "Delete all timesheets, seat reservations, payments, and hails", {:action => :blast_db}, {:confirm => 'This will delete all timesheets, seat reservations, payments, and hails. Are you sure you want to blast the database?'} -%>

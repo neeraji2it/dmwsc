@@ -1,0 +1,74 @@
+<%= render :partial => "layouts/flash_notices" %>
+
+<p>You current balance is <strong><span id="my_bill_balance"><%= number_to_currency(@customer.balance * -1.0) -%></span></strong></p>
+<a data-rel="dialog" href="<%= url_for :controller => :bill, :action => :index -%>" data-role="button" data-mini="true" data-inline="true" data-theme="c">Pay Now</a>
+
+<div data-role="collapsible-set" data-theme="c" data-content-theme="c">
+  <div data-role="collapsible" data-theme="c" data-content-theme="c" data-mini="true" data-collapsed="false"  data-icon="arrow-u" data-iconpos="right" >
+    <h3>This Month</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>In</th>
+      <th>Out</th>
+      <th>Time</th>
+      <th>Charge</th>
+      <th>Bal</th>      
+    </tr>
+  </thead>
+  <tbody>
+    <% balance = @customer.balance * -1.0 %>
+    <% @line_items.each do |li| %>
+      <tr>
+        <% if li.kind_of? TimeSheet %>
+          <td><%= li.start_time.strftime("%-m/%-d") -%></td>
+          <td><%= li.start_time.strftime("%l:%M%P") -%></td>
+          <td><%= li.is_open? ? '<div class="paying_indicator"></div>'.html_safe : li.end_time.strftime("%l:%M%P") -%></td>
+          <td>
+            <%= mm, ss = li.total_time.divmod(60)
+                hh, mm = mm.divmod(60)
+                "#{hh}h #{mm}m #{ss.ceil}s"
+                %>
+          </td>
+          <td class="currency"><%= number_to_currency(li.is_open? ? li.calculate_charge : li.charge) -%></td>
+          <td class="currency">
+            <%=
+               balance -= (li.is_open? ? li.calculate_charge : li.charge)
+               number_to_currency(balance)
+             %>
+          </td>
+        <% elsif li.kind_of? Payment %>
+          <td><%= li.created_at.strftime("%-m/%-d") -%></td>
+          <td><%= li.created_at.strftime("%l:%M%P") -%></td>
+          <td>payment</td>
+          <td colspan="2" class="currency"><%= number_to_currency(-1 * li.amount) -%></td>
+          <td class="currency">
+            <%=
+               balance += li.amount
+               number_to_currency(balance)
+             %></td>
+        <% elsif li.kind_of? Fixnum %>
+          <td class="currency" colspan="6">NJS - previous balance</td>
+        <% else %>
+          <td colspan="6">
+            NJS - unknown type
+          </td>
+        <% end %>        
+      </tr>
+    <% end %>
+  <tbody>    
+</table>
+
+
+  </div>
+  <div data-role="collapsible" data-theme="c" data-content-theme="c" data-mini="true"  data-icon="arrow-d" data-iconpos="right">
+    <h3>May 2012</h3>
+    <p>I'm the collapsible content. By default I'm closed, but you can click the header to open me.</p>
+  </div>
+  <div data-role="collapsible" data-theme="c" data-content-theme="c" data-mini="true"  data-icon="arrow-d" data-iconpos="right">
+    <h3>April 2012</h3>
+    <p>I'm the collapsible content. By default I'm closed, but you can click the header to open me.</p>
+  </div>
+</div>

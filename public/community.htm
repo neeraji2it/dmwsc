@@ -1,0 +1,52 @@
+<!DOCTYPE html> 
+<html> 
+	<head> 
+	<title>Workshop Cafe</title> 
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./css/workshop.min.css" />
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
+	<link rel="stylesheet" type="text/css" media="all" href="./css/main.css" />
+	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
+</head> 
+<body> 
+
+<!-- Start of first page -->
+<div data-role="page"id="community">
+
+	<div data-role="header" data-id="head" data-position="fixed">
+		<h1>Community</h1>
+	</div><!-- /header -->
+
+	<div data-role="content">	
+		<h3>We're listening! Vote to change Workshop.</h3>
+		<ul data-role="listview" data-inset="true" id="questions">
+			<li><a href="poll.htm" data-transition="slide" data-inline="true" ><img src="./images/glyphicons/glyphicons_151_edit.png" alt="Pending" class="ui-li-icon ui-corner-none">Which coffee vendor do you prefer?</a></li>
+			<li><a href="#" class="completed"><img src="./images/glyphicons/glyphicons_150_check.png" alt="Completed" class="ui-li-icon ui-corner-none">What additional services would you use?</a></li>
+		</ul>
+		<h3>Express yourself!</h3>
+		<ul data-role="listview" data-inset="true" id="expressions">
+			<li><a href="art.htm" data-transition="slide" data-inline="true" ><img src="./images/glyphicons/glyphicons_159_picture.png" alt="Pending" class="ui-li-icon ui-corner-none">Choose Digital Art</a></li>
+			<li><a href="#" class="completed"><img src="./images/glyphicons/glyphicons_017_music.png" alt="Completed" class="ui-li-icon ui-corner-none">Pick a Playlist</a></li>
+			<li><a href="#" class="completed"><img src="./images/glyphicons/glyphicons_390_facebook.png" alt="Completed" class="ui-li-icon ui-corner-none">Tell Friends You're Here</a></li>
+		</ul>
+	</div><!-- /content -->
+
+	<div data-role="footer" data-id="foot" data-position="fixed">
+		<div data-role="navbar" data-grid="d" class="nav-site">
+		<ul>
+			<li><a rel="external" href="index.html" id="home_nav" data-icon="custom" data-prefetch="true">Home</a></li>
+			<li><a rel="external" href="order.htm" id="order_nav" data-icon="custom" data-prefetch="true">Order</a></li>
+			<li><a rel="external" href="my_bill.htm" id="bill_nav" data-icon="custom" data-prefetch="true">My Bill</a></li>
+			<li><a rel="external" href="community.htm" id="account_nav" data-icon="custom" data-prefetch="true" class="ui-btn-active ui-state-persist">Community</a></li>
+			<li><a rel="external" href="more.htm" id="more_nav" data-icon="custom" data-prefetch="true">More</a></li>
+		</ul>
+		</div>
+	</div><!-- /footer -->
+</div><!-- /page -->
+
+
+
+</body>
+</html>

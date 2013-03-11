@@ -1,0 +1,137 @@
+<div data-role="content" data-theme="c" style="padding:0;">
+  <div id="seat_selector_container" data-theme="c" >
+    <div id="normalAreaContainer">
+      <div id="zoomTool"></div>
+      <div id="normalArea1" class="normalArea"></div>
+      <div id="normalArea2" class="normalArea"></div>
+      <div id="normalArea3" class="normalArea"></div>
+      <div id="normalArea4" class="normalArea"></div>
+      <div id="normalArea5" class="normalArea"></div>
+      <div id="normalArea6" class="normalArea"></div>
+      <div id="normalArea7" class="normalArea"></div>
+      <div id="normalArea8" class="normalArea"></div>
+    </div>
+
+    <div id="zoomedAreaContainer">
+      <span class="tooltip" id="infoTip"><span>This seat is already reserved</span></span>
+      <span class="tooltip" id="reserveTip"><%= image_tag("https://graph.facebook.com/#{@customer.uid}/picture") -%></span>
+
+      <div id="zoomedAreaHelp" class="zoomedArea active">
+        <p>Swipe or click any region above to zoom in</p>
+      </div>
+      <div id="zoomedArea1" class="zoomedArea">
+        <div id="seat1" class="seatNew"></div>
+        <div id="seat2" class="seatNew"></div>
+        <div id="seat3" class="seatNew"></div>
+        <div id="seat4" class="seatNew"></div>
+        <div id="seat5" class="seatNew"></div>
+        <div id="seat6" class="seatNew"></div>
+        <div id="seat7" class="seatNew"></div>
+        <div id="seat8" class="seatNew"></div>
+        <div id="seat9" class="seatNew"></div>
+        <div id="seat10" class="seatNew"></div>
+        <div id="seat11" class="seatNew"></div>
+        <div id="seat12" class="seatNew"></div>
+        <div id="seat13" class="seatNew"></div>
+        <div id="seat14" class="seatNew"></div>
+        <div id="seat15" class="seatNew"></div>
+        <div id="seat16" class="seatNew"></div>
+        <div id="seat17" class="seatNew"></div>
+        <div class="caption">Front</div>
+      </div>
+      <div id="zoomedArea2" class="zoomedArea">
+        <div id="seat18" class="seatNew"></div>
+        <div id="seat19" class="seatNew"></div>
+        <div id="seat20" class="seatNew"></div>
+        <div id="seat21" class="seatNew"></div>
+        <div id="seat22" class="seatNew"></div>
+        <div id="seat23" class="seatNew"></div>
+        <div id="seat24" class="seatNew"></div>
+        <div id="seat25" class="seatNew"></div>
+        <div id="seat26" class="seatNew"></div>
+        <div id="seat27" class="seatNew"></div>
+        <div id="seat28" class="seatNew"></div>
+        <div id="seat29" class="seatNew"></div>
+        <div id="seat30" class="seatNew"></div>
+        <div id="seat31" class="seatNew"></div>
+        <div id="seat32" class="seatNew"></div>
+        <div id="seat33" class="seatNew"></div>
+        <div id="seat34" class="seatNew"></div>
+        <div id="seat35" class="seatNew"></div>
+        <div id="seat36" class="seatNew"></div>
+        <div id="seat37" class="seatNew"></div>
+        <div class="caption">Mid</div>
+      </div>
+      <div id="zoomedArea3" class="zoomedArea">
+        <div id="seat38" class="seatNew"></div>
+        <div id="seat39" class="seatNew"></div>
+        <div id="seat40" class="seatNew"></div>
+        <div id="seat41" class="seatNew"></div>
+        <div id="seat42" class="seatNew"></div>
+        <div id="seat43" class="seatNew"></div>
+        <div id="seat44" class="seatNew"></div>
+        <div id="seat45" class="seatNew"></div>
+        <div class="caption">Power Users</div>
+      </div>
+      <div id="zoomedArea4" class="zoomedArea">
+        <div id="seat46" class="seatNew"></div>
+        <div id="seat47" class="seatNew"></div>
+        <div id="seat48" class="seatNew"></div>
+        <div id="seat49" class="seatNew"></div>
+        <div id="seat50" class="seatNew"></div>
+        <div id="seat51" class="seatNew"></div>
+        <div id="seat53" class="seatNew"></div>
+        <div id="seat54" class="seatNew"></div>
+        <div id="seat55" class="seatNew"></div>
+        <div id="seat56" class="seatNew"></div>
+        <div id="seat57" class="seatNew"></div>
+        <div id="seat58" class="seatNew"></div>
+        <div class="caption">Back Bench</div>
+      </div>
+      <div id="zoomedArea5" class="zoomedArea">
+        <div id="seat59" class="seatNew"></div>
+        <div id="seat60" class="seatNew"></div>
+        <div id="seat61" class="seatNew"></div>
+        <div id="seat62" class="seatNew"></div>
+        <div id="seat63" class="seatNew"></div>
+        <div id="seat64" class="seatNew"></div>
+        <div id="seat65" class="seatNew"></div>
+        <div id="seat66" class="seatNew"></div>
+        <div class="caption">Community Table</div>
+      </div>
+      <div id="zoomedArea6" class="zoomedArea">
+        <div id="seat67" class="seatNew"></div>
+        <div id="seat68" class="seatNew"></div>
+        <div id="seat69" class="seatNew"></div>
+        <div id="seat70" class="seatNew"></div>
+        <div id="seat71" class="seatNew"></div>
+        <div id="seat72" class="seatNew"></div>
+        <div id="seat73" class="seatNew"></div>
+        <div class="caption">Hangout</div>
+      </div>
+      <div id="zoomedArea7" class="zoomedArea">
+        <div id="seat74" class="seatNew"></div>
+        <div id="seat75" class="seatNew"></div>
+        <div id="seat76" class="seatNew"></div>
+        <div id="seat77" class="seatNew"></div>
+        <div id="seat78" class="seatNew"></div>
+        <div id="seat79" class="seatNew"></div>
+        <div id="seat80" class="seatNew"></div>
+        <div id="seat81" class="seatNew"></div>
+        <div class="caption">Private Meetings</div>
+      </div>
+      <div id="zoomedArea8" class="zoomedArea">
+        <div id="seat82" class="seatNew"></div>
+        <div id="seat83" class="seatNew"></div>
+        <div id="seat84" class="seatNew"></div>
+        <div id="seat85" class="seatNew"></div>
+        <div id="seat86" class="seatNew"></div>
+        <div id="seat87" class="seatNew"></div>
+        <div id="seat88" class="seatNew"></div>
+        <div class="caption">Rooms</div>
+      </div>
+    </div>
+    <a data-role="button" data-theme="b" id="submitSeat">Submit</a>
+    <a href="#index_out" data-role="button" data-theme="c">Cancel</a>
+  </div>
+</div>
