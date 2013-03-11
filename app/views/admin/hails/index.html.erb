@@ -1,88 +1,164 @@
-<div data-role="content" data-theme="c" style="padding:0;">
-  <div id='adminHailPage'>
+<h2>Customer Initiated Hails</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Customer Name</th>
+      <th>Seat At</th>
+      <th>Customer Photo</th>
+      <th>Mark Done</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if Hail.pending.type_customer_initiated.size == 0 %>
+    <td colspan="4">no customer initiated hails</td>
+  <% end %>
+  <% Hail.pending.type_customer_initiated.each do |hail| %>
+    <tr>
+      <td><%= hail.customer.first_name -%> <%= hail.customer.last_name -%></td>
+      <td><%= "#{hail.customer.current_seat.name} (id ##{hail.customer.current_seat.id})" -%></td>
+      <td><%= image_tag("https://graph.facebook.com/#{hail.customer.uid}/picture") -%></td>
+      <td>
+        <%= form_tag url_for(:controller => "admin/hails/#{hail.id}"), :method => :put do -%>
+          <%= hidden_field_tag :id, hail.id -%>
 
-
-    <h1 class='pageTitle'>Customer First Seated Hails</h1>
-
-    <br />
-    <div class="adminHailTable">
-      <table>
-        <thead>
-          <tr>
-            <th rowspan="2" class="th1">Customer</th>
-            <th rowspan="2" class="th2"></th>
-            <th colspan="2">Timestamps</th>
-            <th rowspan="2" class="th5">Elapsed time</th>
-            <th rowspan="2" class="th6">How Initiated (1st seated or HAIL?) (Resolution)</th>
-            <th rowspan="2" class="th7">Action</th>
-          </tr>
-          <tr>
-            <th class="th3">Initiated</th>
-            <th class="th4">Closed</th>
-          </tr>
-        </thead>
-        <tbody class="customerRow">
-          <% if Hail.pending.type_customer_initiated.size == 0 %>
-          <td colspan="4">no customer initiated hails</td>
+          <%= submit_tag 'done' -%>
         <% end %>
-        <% Hail.pending.type_customer_initiated.each do |time| %>
+      </td>
+    </tr>
+  <% end %>
+</tbody>
+</table>
 
-          <tr class="current">
-            <td rowspan="2"><%= time.customer.first_name %><br /><%= image_tag("https://graph.facebook.com/#{time.customer.uid}/picture") -%></td>
-            <td ><%= time.end_time.present? ? "Close" : "Active" %></td>
-            <td>
-              <p><%= time.start_time.strftime("%m/%d/%Y @%H:%S%p") %></p>
-            </td>
-            <td>
-              <p><%= time.end_time.strftime("%m/%d/%Y @%H:%S%p") if time.end_time.present? %></p>
-            </td>
-            <td>
-              <p><%=
-                # NJS - DRY this
-                mm, ss = time.time_sheet.total_time.divmod(60)
-                hh, mm = mm.divmod(60)
-                "#{hh}h #{mm}m #{ss.ceil}s"
-              %></p>
-            </td>
-            <td>
-              <p>1st seated</p>
-            </td>
-            <td>
-              <%= form_tag url_for(:controller => "admin/hails/#{time.id}"), :method => :put do -%>
-                <%= hidden_field_tag :id, time.id -%>
+<h2>Customer First Seated Hails</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Customer Name</th>
+      <th>Seat At</th>
+      <th>Customer Photo</th>
+      <th>Mark Done</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if Hail.pending.type_first_seat.size == 0 %>
+    <td colspan="4">no customer first seated hails</td>
+  <% end %>
+  <% Hail.pending.type_first_seat.each do |hail| %>
+    <tr>
+      <td><%= hail.customer.first_name -%> <%= hail.customer.last_name -%></td>
+      <td><%= "#{hail.customer.current_seat.name} (id ##{hail.customer.current_seat.id})" -%></td>
+      <td><%= image_tag("https://graph.facebook.com/#{hail.customer.uid}/picture") -%></td>
+      <td>
+        <%= form_tag url_for(:controller => "admin/hails/#{hail.id}"), :method => :put do -%>
+          <%= hidden_field_tag :id, hail.id -%>
 
-                <a typy="submit" class='doneBtn button-link' style="backgroud: none;border: none;">done</a>
-              <% end %>
-            </td>
-          </tr>
-          <tr class="history">
-            <td><a class='openHistory'>History +/-</a></td>
-            <td>
-              <p>1/29/2013 @1:15pm</p>
-              <p>1/27/2013 @7:19pm</p>
-              <p>1/25/2013 @9:15pm</p>
-            </td>
-            <td>
-              <p>1/29/2013 @1:18pm</p>
-              <p>1/27/2013 @7:26pm</p>
-              <p>1/25/2013 @9:16pm</p>
-            </td>
-            <td>
-              <p>3m: 7 sec</p>
-              <p>7m: 25 sec</p>
-              <p>1m: 0 sec</p>
-            </td>
-            <td>
-              <p>HAIL (DONE)</p>
-              <p>1st seated</p>
-              <p>HAIL (cancelled)</p>
-            </td>
-            <td></td>
-          </tr>
-
-          </tbody>
+          <%= submit_tag 'done' -%>
         <% end %>
-      </table>
-    </div>
-  </div>
-</div>
+      </td>
+    </tr>
+  <% end %>
+</tbody>
+</table>
+
+<h2>Customer Initiated Hails Marked Done</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Customer Name</th>
+      <th>Customer Photo</th>
+      <th>created on</th>
+      <th>updated on</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if Hail.done.type_customer_initiated.size == 0 %>
+    <td colspan="4">no hails marked as done</td>
+  <% end %>
+  <% Hail.done.type_customer_initiated.each do |hail| %>
+    <tr>
+      <td><%= hail.customer.first_name -%> <%= hail.customer.last_name -%></td>
+      <td><%= image_tag("https://graph.facebook.com/#{hail.customer.uid}/picture") -%></td>
+      <td><%= hail.created_at.strftime("%-m/%-d %l:%M%P") -%></td>
+      <td><%= hail.updated_at.strftime("%-m/%-d %l:%M%P") -%></td>
+    </tr>
+  <% end %>
+</tbody>
+</table>
+
+
+<h2>First Seated Hails Marked Done</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Customer Name</th>
+      <th>Customer Photo</th>
+      <th>created on</th>
+      <th>updated on</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if Hail.done.type_first_seat.size == 0 %>
+    <td colspan="4">no hails marked as done</td>
+  <% end %>
+  <% Hail.done.type_first_seat.each do |hail| %>
+    <tr>
+      <td><%= hail.customer.first_name -%> <%= hail.customer.last_name -%></td>
+      <td><%= image_tag("https://graph.facebook.com/#{hail.customer.uid}/picture") -%></td>
+      <td><%= hail.created_at.strftime("%-m/%-d %l:%M%P") -%></td>
+      <td><%= hail.updated_at.strftime("%-m/%-d %l:%M%P") -%></td>
+    </tr>
+  <% end %>
+</tbody>
+</table>
+
+<h2>Hails Canceled</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Customer Name</th>
+      <th>Customer Photo</th>
+      <th>created on</th>
+      <th>updated on</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if Hail.customer_canceled.size == 0 %>
+    <td colspan="4">no hails marked as canceled</td>
+  <% end %>
+  <% Hail.customer_canceled.each do |hail| %>
+    <tr>
+      <td><%= hail.customer.first_name -%> <%= hail.customer.last_name -%></td>
+      <td><%= image_tag("https://graph.facebook.com/#{hail.customer.uid}/picture") -%></td>
+      <td><%= hail.created_at.strftime("%-m/%-d %l:%M%P") -%></td>
+      <td><%= hail.updated_at.strftime("%-m/%-d %l:%M%P") -%></td>
+    </tr>
+  <% end %>
+</tbody>
+</table>
+
+
+<h2>Hails Canceled When Customer Left</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Customer Name</th>
+      <th>Customer Photo</th>
+      <th>created on</th>
+      <th>updated on</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if Hail.customer_left.size == 0 %>
+    <td colspan="4">no hails marked as canceled when customer left</td>
+  <% end %>
+  <% Hail.customer_left.each do |hail| %>
+    <tr>
+      <td><%= hail.customer.first_name -%> <%= hail.customer.last_name -%></td>
+      <td><%= image_tag("https://graph.facebook.com/#{hail.customer.uid}/picture") -%></td>
+      <td><%= hail.created_at.strftime("%-m/%-d %l:%M%P") -%></td>
+      <td><%= hail.updated_at.strftime("%-m/%-d %l:%M%P") -%></td>
+    </tr>
+  <% end %>
+</tbody>
+</table>
+

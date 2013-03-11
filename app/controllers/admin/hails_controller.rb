@@ -5,7 +5,7 @@ class Admin::HailsController < ApplicationController
   # NJS - make sure user is logged in as an internal_user
 
   def index
-    @times = TimeSheetEntry.all
+    # intentionally blank
   end
 
   # staff can only mark them as done

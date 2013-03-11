@@ -22,7 +22,7 @@
           </tr>
         </thead>
         <tbody class="customerRow">
-          <% if Hail.pending.type_customer_initiated.size == 0 %>
+          <% if @times.size == 0 %>
           <td colspan="4">no customer initiated hails</td>
         <% end %>
         <% for time in @times %>
@@ -78,8 +78,7 @@
               <p>HAIL (cancelled)</p>
             </td>
             <td></td>
-          </tr>
-
+          </tr> 
           </tbody>
         <% end %>
       </table>
