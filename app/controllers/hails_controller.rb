@@ -5,7 +5,9 @@ class HailsController < ApplicationController
   before_filter :login_required
 
   def index
-    @times = TimeSheetEntry.all
+    sql_query = "SELECT * FROM time_sheet_entries where time_sheet_id  IN  (SELECT max(id) FROM time_sheets group by customer_id) order by created_at DESC"
+    @times = TimeSheetEntry.find_by_sql(sql_query)
+    
   end
 
   # create a new hail

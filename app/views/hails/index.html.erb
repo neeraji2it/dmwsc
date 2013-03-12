@@ -21,64 +21,64 @@
             <th class="th4">Closed</th>
           </tr>
         </thead>
-        <tbody class="customerRow">
-          <% if @times.size == 0 %>
-          <td colspan="4">no customer initiated hails</td>
-        <% end %>
         <% for time in @times %>
-
-          <tr class="current">
-            <td rowspan="2"><%= time.customer.first_name %><br /><%= image_tag("https://graph.facebook.com/#{time.customer.uid}/picture") -%></td>
-            <td ><%= time.end_time.present? ? "Close" : "Active" %></td>
-            <td>
-              <p><%= time.start_time.strftime("%m/%d/%Y @%H:%S%p") %></p>
-            </td>
-            <td>
-              <p><%= time.end_time.strftime("%m/%d/%Y @%H:%S%p") if time.end_time.present? %></p>
-            </td>
-            <td>
-              <p><%=
-                # NJS - DRY this
-                mm, ss = time.time_sheet.total_time.divmod(60)
-                hh, mm = mm.divmod(60)
-                "#{hh}h #{mm}m #{ss.ceil}s"
-              %></p>
-            </td>
-            <td>
-              <p>1st seated</p>
-            </td>
-            <td>
-              <%= form_tag url_for(:controller => "admin/hails/#{time.id}"), :method => :put do -%>
-                <%= hidden_field_tag :id, time.id -%>
-
-                <a type="submit" class='doneBtn button-link' style="backgroud: none;border: none;color: #ffffff;">done</a>
-              <% end %>
-            </td>
-          </tr>
-          <tr class="history">
-            <td><a class='openHistory'>History +/-</a></td>
-            <td>
-              <p>1/29/2013 @1:15pm</p>
-              <p>1/27/2013 @7:19pm</p>
-              <p>1/25/2013 @9:15pm</p>
-            </td>
-            <td>
-              <p>1/29/2013 @1:18pm</p>
-              <p>1/27/2013 @7:26pm</p>
-              <p>1/25/2013 @9:16pm</p>
-            </td>
-            <td>
-              <p>3m: 7 sec</p>
-              <p>7m: 25 sec</p>
-              <p>1m: 0 sec</p>
-            </td>
-            <td>
-              <p>HAIL (DONE)</p>
-              <p>1st seated</p>
-              <p>HAIL (cancelled)</p>
-            </td>
-            <td></td>
-          </tr> 
+          <tbody class="customerRow">
+            <tr class="current">
+              <td rowspan="2"><%= time.time_sheet.customer.first_name %><br /><%= image_tag("https://graph.facebook.com/#{time.time_sheet.customer.uid}/picture") -%></td>
+              <td ><%= time.end_time.present? ? "Close" : "Active" %></td>
+              <td>
+                <p><%= time.start_time.strftime("%m/%d/%Y @%H:%S%p") %></p>
+              </td>
+              <td>
+                <p><%= time.end_time.strftime("%m/%d/%Y @%H:%S%p") if time.end_time.present? %></p>
+              </td>
+              <td>
+                <p><%=
+                  # NJS - DRY this
+                  mm, ss = time.time_sheet.total_time.divmod(60)
+                  hh, mm = mm.divmod(60)
+                  "#{hh}h #{mm}m #{ss.ceil}s"
+                %></p>
+              </td>
+              <td>
+                <p>1st seated</p>
+              </td>
+              <td>
+                <%= form_tag url_for(:controller => "admin/hails/#{time.id}"), :method => :put do -%>
+                  <%= hidden_field_tag :id, time.id -%>
+                  <a class='doneBtn button-link' style="color: #fff;">Done</a>
+                <% end %>
+              </td>
+            </tr>
+            <% time_sheets = TimeSheetEntry.where("time_sheets.customer_id = #{time.time_sheet.customer.id}").joins(:time_sheet) %>
+            <tr class="history">
+              <td><a class='openHistory'>History +/-</a></td>
+              <td>
+                <% for history in time_sheets %>
+                  <p><%= history.start_time.strftime("%m/%d/%Y @%H:%S%p") %></p>
+                <%end%>
+              </td>
+              <td>
+                <% for history in time_sheets %>
+                  <p><%= history.end_time.strftime("%m/%d/%Y @%H:%S%p") if history.end_time.present? %></p>
+                <%end%>
+              </td>
+              <td>
+                <% for history in time_sheets %>
+                  <p><%=
+                    mm, ss = history.time_sheet.total_time.divmod(60)
+                    hh, mm = mm.divmod(60)
+                    "#{hh}h #{mm}m #{ss.ceil}s"
+                  %>
+                  </p>
+                <%end%>
+              </td>
+              <td>
+                <% for history in time_sheets %>
+                  <p>HAIL (DONE)</p>
+                <%end%>
+              </td>
+            </tr>
           </tbody>
         <% end %>
       </table>
