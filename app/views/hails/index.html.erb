@@ -24,7 +24,7 @@
 
         <tbody>
           <% for customer_hails in @hails_grouped_by_customer %>
-            <% recent_hail = customer_hails.pop %>
+            <% recent_hail = customer_hails.shift %>
 
             <tr class="current">
               <td rowspan="2"><%= recent_hail.customer.first_name %><br /><%= image_tag("https://graph.facebook.com/#{recent_hail.customer.uid}/picture") -%></td>
