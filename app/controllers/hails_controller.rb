@@ -6,7 +6,7 @@ class HailsController < ApplicationController
 
   def index
     @hails_grouped_by_customer = [] # This is an arrya of arrays, with each array containing hails of one customer
-    Hail.order("hail_type ASC, created_at DESC").each{|hail|
+    Hail.order("state ASC, created_at DESC").each{|hail|
       # Check whether there are hails array with customer_id==hail.customer_id already present
       if (customer_hails = @hails_grouped_by_customer.find{|h| h.first.customer_id == hail.customer_id}).present?
         customer_hails << hail
