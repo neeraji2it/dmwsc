@@ -30,7 +30,7 @@
               <td rowspan="2"><%= recent_hail.customer.first_name %><br /><%= image_tag("https://graph.facebook.com/#{recent_hail.customer.uid}/picture") -%></td>
               <td ><%= recent_hail.pending? ? "Active" : "Close" %></td>
               <td><p><%= recent_hail.initiated_at.strftime("%m/%d/%Y @%H:%S%p") %></p></td>
-              <td><%= recent_hail.closed_at.present? ? "<p>#{recent_hail.closed_at.strftime("%m/%d/%Y @%H:%S%p")}</p>" : '' %></td>
+              <td><%= recent_hail.closed_at.present? ? "<p>#{recent_hail.closed_at.strftime("%m/%d/%Y @%H:%S%p")}</p>".html_safe : '' %></td>
               <td>
                 <% elapsed_time = (recent_hail.closed_at || Time.now) - recent_hail.initiated_at %>
                 <% mm, ss = elapsed_time.divmod(60) %>
@@ -40,7 +40,7 @@
               <td><p><%= recent_hail.initiated_status %></p></td>
               <td>
                 <% if recent_hail.pending? %>
-                  <a class="doneBtn button-link" style="color: #ffffff;">Done</a>
+                  <%= link_to "Done", mark_done_hail_path(recent_hail), :method => "PUT", :class => "doneBtn button-link", :style => "color: #ffffff;" %>
                 <% end %>
               </td>
             </tr>
@@ -54,8 +54,8 @@
               </td>
               <td>
                 <% for hail in customer_hails %>
-                  <p><%= hail.closed_at.strftime("%m/%d/%Y @%H:%S%p") if hail.closed_at.present? %></p>
-                <%end%>
+                  <%= hail.closed_at.present? ? "<p>#{hail.closed_at.strftime("%m/%d/%Y @%H:%S%p")}</p>".html_safe : '' %>
+                <% end %>
               </td>
               <td>
                 <% for hail in customer_hails %>
@@ -68,6 +68,15 @@
               <td>
                 <% for hail in customer_hails %>
                   <p><%= hail.initiated_status %></p>
+                <% end %>
+              </td>
+              <td>
+                <% for hail in customer_hails %>
+                  <p style='height: auto;'>
+                    <% if hail.pending? %>
+                      <%= link_to "Done", mark_done_hail_path(hail), :method => "PUT", :class => "doneBtn button-link", :style => "color: #ffffff;" %>
+                    <% end %>
+                  </p>
                 <% end %>
               </td>
             <tr>

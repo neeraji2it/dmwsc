@@ -98,6 +98,6 @@ class Hail < ActiveRecord::Base
   end
 
   def initiated_status
-    self.hail_type == 2 ? "1st seated" : "HAIL (self.state_to_s)"
+    self.hail_type == 2 ? "1st seated" : "HAIL (#{self.state_to_s})"
   end
 end

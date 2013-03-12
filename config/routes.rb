@@ -63,7 +63,12 @@ Stripetest::Application.routes.draw do
   end
 
   resources :seat_reservations, :only => [:create, :update]
-  resources :hails, :only => [:create]
+  resources :hails, :only => [:create] do
+    member do
+      put :mark_done
+      get :mark_done
+    end
+  end
   # manually route puts to hails controller to update so don't need the id
   # as the default update does.
   match 'hails' => 'hails#update', :via => :put
