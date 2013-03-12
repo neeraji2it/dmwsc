@@ -5,12 +5,12 @@
 if Rails.env == 'development' || Rails.env == 'test'
   # development for local host
   Rails.application.config.middleware.use OmniAuth::Builder do
-    provider :facebook, '151278968367725', '20f2283e41f3cf106a803232ba8c58f8'
+    provider :facebook, '150429211787403', '46c56bf9ada50837f4c53c5432f04267'
   end
 else
   Rails.application.config.middleware.use OmniAuth::Builder do
     # "production" for testing env (http://desolate-everglades-3115.herokuapp.com)
-    provider :facebook, '427462840668798', '179811dcfa381b590feffbb59eb260cc'
+    provider :facebook, '226062270873991', '091b53e32234b2bd51d54c5f8b1a6344'
   end
 end
 
