@@ -22,6 +22,18 @@ class Hail < ActiveRecord::Base
   scope :type_customer_initiated, where(:hail_type => HAIL_TYPES[:CUSTOMER_INITIATED])
   scope :type_first_seat, where(:hail_type => HAIL_TYPES[:FIRST_SEATING])
 
+  HAIL_STATES.each{|key, value|
+    define_method "#{key.to_s.underscore}?" do
+      self.state == value
+    end
+  }
+
+  HAIL_TYPES.each{|key, value|
+    define_method "#{key.to_s.underscore}?" do
+      self.hail_type == value
+    end
+  }
+
   def self.create_customer_initiated(c)
     if !(c.kind_of? Customer)
       c = Customer.find(c)
@@ -73,4 +85,19 @@ class Hail < ActiveRecord::Base
     self.save!
   end
 
+  def initiated_at
+    self.created_at
+  end
+
+  def closed_at
+    self.updated_at unless self.pending?
+  end
+
+  def state_to_s
+    HAIL_STATES.each{|k,v| return k.to_s if v==self.state}
+  end
+
+  def initiated_status
+    self.hail_type == 2 ? "1st seated" : "HAIL (self.state_to_s)"
+  end
 end

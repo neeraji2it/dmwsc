@@ -5,9 +5,16 @@ class HailsController < ApplicationController
   before_filter :login_required
 
   def index
-    sql_query = "SELECT * FROM time_sheet_entries where time_sheet_id  IN  (SELECT max(id) FROM time_sheets group by customer_id) order by created_at DESC"
-    @times = TimeSheetEntry.find_by_sql(sql_query)
-    
+    @hails_grouped_by_customer = [] # This is an arrya of arrays, with each array containing hails of one customer
+    Hail.order("hail_type ASC, created_at DESC").each{|hail|
+      # Check whether there are hails array with customer_id==hail.customer_id already present
+      if (customer_hails = @hails_grouped_by_customer.find{|h| h.first.customer_id == hail.customer_id}).present?
+        customer_hails << hail
+      else
+        # Create a new array of hails
+        @hails_grouped_by_customer << [hail]
+      end
+    }
   end
 
   # create a new hail

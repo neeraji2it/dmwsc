@@ -68,7 +68,7 @@ span.toolTip img{
     overflow: hidden;
     max-width:460;
 }
-#seatPageHeader{height:23px;}
+#seatPageHeader{height:23px; padding: 7px 0;}
 #seatPageHeader h3{
     margin: 0;
     line-height: 23px;

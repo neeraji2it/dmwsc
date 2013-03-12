@@ -21,66 +21,58 @@
             <th class="th4">Closed</th>
           </tr>
         </thead>
-        <% for time in @times %>
-          <tbody class="customerRow">
+
+        <tbody>
+          <% for customer_hails in @hails_grouped_by_customer %>
+            <% recent_hail = customer_hails.pop %>
+
             <tr class="current">
-              <td rowspan="2"><%= time.time_sheet.customer.first_name %><br /><%= image_tag("https://graph.facebook.com/#{time.time_sheet.customer.uid}/picture") -%></td>
-              <td ><%= time.end_time.present? ? "Close" : "Active" %></td>
+              <td rowspan="2"><%= recent_hail.customer.first_name %><br /><%= image_tag("https://graph.facebook.com/#{recent_hail.customer.uid}/picture") -%></td>
+              <td ><%= recent_hail.pending? ? "Active" : "Close" %></td>
+              <td><p><%= recent_hail.initiated_at.strftime("%m/%d/%Y @%H:%S%p") %></p></td>
+              <td><%= recent_hail.closed_at.present? ? "<p>#{recent_hail.closed_at.strftime("%m/%d/%Y @%H:%S%p")}</p>" : '' %></td>
               <td>
-                <p><%= time.start_time.strftime("%m/%d/%Y @%H:%S%p") %></p>
+                <% elapsed_time = (recent_hail.closed_at || Time.now) - recent_hail.initiated_at %>
+                <% mm, ss = elapsed_time.divmod(60) %>
+                <% hh, mm = mm.divmod(60) %>
+                <p><%= "#{hh}h #{mm}m #{ss.ceil}s" %></p>
               </td>
+              <td><p><%= recent_hail.initiated_status %></p></td>
               <td>
-                <p><%= time.end_time.strftime("%m/%d/%Y @%H:%S%p") if time.end_time.present? %></p>
-              </td>
-              <td>
-                <p><%=
-                  # NJS - DRY this
-                  mm, ss = time.time_sheet.total_time.divmod(60)
-                  hh, mm = mm.divmod(60)
-                  "#{hh}h #{mm}m #{ss.ceil}s"
-                %></p>
-              </td>
-              <td>
-                <p>1st seated</p>
-              </td>
-              <td>
-                <%= form_tag url_for(:controller => "admin/hails/#{time.id}"), :method => :put do -%>
-                  <%= hidden_field_tag :id, time.id -%>
-                  <a class='doneBtn button-link' style="color: #fff;">Done</a>
+                <% if recent_hail.pending? %>
+                  <a class="doneBtn button-link" style="color: #ffffff;">Done</a>
                 <% end %>
               </td>
             </tr>
-            <% time_sheets = TimeSheetEntry.where("time_sheets.customer_id = #{time.time_sheet.customer.id}").joins(:time_sheet) %>
+            
             <tr class="history">
               <td><a class='openHistory'>History +/-</a></td>
               <td>
-                <% for history in time_sheets %>
-                  <p><%= history.start_time.strftime("%m/%d/%Y @%H:%S%p") %></p>
+                <% for hail in customer_hails %>
+                  <p><%= hail.initiated_at.strftime("%m/%d/%Y @%H:%S%p") %></p>
                 <%end%>
               </td>
               <td>
-                <% for history in time_sheets %>
-                  <p><%= history.end_time.strftime("%m/%d/%Y @%H:%S%p") if history.end_time.present? %></p>
+                <% for hail in customer_hails %>
+                  <p><%= hail.closed_at.strftime("%m/%d/%Y @%H:%S%p") if hail.closed_at.present? %></p>
                 <%end%>
               </td>
               <td>
-                <% for history in time_sheets %>
-                  <p><%=
-                    mm, ss = history.time_sheet.total_time.divmod(60)
-                    hh, mm = mm.divmod(60)
-                    "#{hh}h #{mm}m #{ss.ceil}s"
-                  %>
-                  </p>
+                <% for hail in customer_hails %>
+                  <% elapsed_time = (hail.closed_at || Time.now) - hail.initiated_at %>
+                  <% mm, ss = elapsed_time.divmod(60) %>
+                  <% hh, mm = mm.divmod(60) %>
+                  <p><%= "#{hh}h #{mm}m #{ss.ceil}s" %></p>
                 <%end%>
               </td>
               <td>
-                <% for history in time_sheets %>
-                  <p>HAIL (DONE)</p>
-                <%end%>
+                <% for hail in customer_hails %>
+                  <p><%= hail.initiated_status %></p>
+                <% end %>
               </td>
-            </tr>
-          </tbody>
-        <% end %>
+            <tr>
+          <% end %>
+        </tbody>
       </table>
     </div>
   </div>

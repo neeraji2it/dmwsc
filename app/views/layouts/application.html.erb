@@ -18,7 +18,6 @@
   <%= stylesheet_link_tag "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
 
-  <div pub-key="pub-8d0b0820-800a-4371-a387-610ec74cc2ab" sub-key="sub-4ea850a1-e566-11e1-8621-3b5494a9b3ab" ssl="off" origin="pubsub.pubnub.com" id="pubnub"></div>
   <script src="http://cdn.pubnub.com/pubnub-3.4.min.js"></script>
 
   <%-# NJS move this to specifically on payment pages only -%>
@@ -26,6 +25,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <div pub-key="pub-8d0b0820-800a-4371-a387-610ec74cc2ab" sub-key="sub-4ea850a1-e566-11e1-8621-3b5494a9b3ab" ssl="off" origin="pubsub.pubnub.com" id="pubnub"></div>
 
 <%= javascript_tag do -%>
   // NJS - move this to payment pages only and make this depend on the environment
