@@ -1,0 +1,16 @@
+<h2>Staff dashboard</h2>
+Find User <%=text_field_tag "staf_user" %>
+<div class = "users_list">
+
+</div>
+<script type="text/javascript">
+$("#staf_user").live("keyup", function(){
+  $.ajax({
+    complete:function(request){},
+    data:'staf_user='+ $(this).val(),
+    dataType:'script',
+    type:'post',
+    url: '/admin/dashboard/fetch_users'
+  })
+});
+</script>

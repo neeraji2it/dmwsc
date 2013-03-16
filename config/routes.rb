@@ -75,10 +75,22 @@ Stripetest::Application.routes.draw do
 
   namespace :admin do
     resources :seat_reservations, :only => [:index, :update]
-    resources :customer, :only => [:index, :login_as]
+    resources :customer, :only => [:index] do 
+      collection do
+       get :login_as
+      end
+    end
     resources :hails, :only => [:index, :update]
+    resources :session, :only => [:new, :create, :destroy]
+    resources :dashboard, :only => [:index] do 
+      collection do
+       post :fetch_users
+       get :customer_dashboard
+      end
+    end
   end
-  
+  match '/admin' => "admin/session#new"
+   match '/admin/logout' => "admin/session#destroy"
   # authentication stuff
   match 'auth/:provider/callback', to: 'sessions#create'
   match 'auth/failure', to: redirect('/')

@@ -5,7 +5,7 @@
 if Rails.env == 'development' || Rails.env == 'test'
   # development for local host
   Rails.application.config.middleware.use OmniAuth::Builder do
-    provider :facebook, '150429211787403', '46c56bf9ada50837f4c53c5432f04267'
+    provider :facebook, '482351791819327', '95b272b1a22849438af4f8fdfacade44'
   end
 else
   Rails.application.config.middleware.use OmniAuth::Builder do

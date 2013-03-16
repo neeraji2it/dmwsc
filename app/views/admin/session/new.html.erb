@@ -1,0 +1,8 @@
+<%unless flash[:alert].nil?%>
+<%=flash[:alert]%>
+<%end%>
+<%=form_tag admin_session_index_path do %>
+<%=text_field_tag "email"%><br/>
+<%=text_field_tag "password"%><br/>
+<%=submit_tag "Login"%>
+<%end%>

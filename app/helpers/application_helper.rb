@@ -9,4 +9,16 @@ module ApplicationHelper
     dollars = dollars.to_s.to_d unless (dollars.is_a?(BigDecimal))
     (dollars * 100).to_i
   end
+
+  def timesheet_duration(total_seconds)
+	minutes = (total_seconds / 60) % 60
+	hours = total_seconds / (60 * 60)
+	return "#{hours.to_i}h #{minutes.to_i}m"
+  end
+
+  def timesheet_used(total_seconds)
+	hours = total_seconds / (60 * 60)
+	return "#{hours.round(2)} hrs "
+  end
+
 end

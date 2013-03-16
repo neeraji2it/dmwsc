@@ -996,3 +996,18 @@ body,html{
 .th5{ width:15%; }
 .th6{ width:15%; }
 .th7{ width:10%; }
+
+
+.list_grid_but{
+    float: left;
+    padding-top: 10px;
+    width: 50%;
+    margin-top: 3px;
+}
+.list_grid_but a{
+    background-color: #555;
+    cursor: pointer;
+    padding: 5px;
+    font-style: normal;
+    color: white;
+}
