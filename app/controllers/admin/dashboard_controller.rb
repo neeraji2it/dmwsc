@@ -22,4 +22,9 @@ class Admin::DashboardController < ApplicationController
     @time_sheets = @customer.time_sheet_entries.except(:order).order('start_time desc')
   end
 
+  def add_hours
+    @customer = Customer.find(session[:customer_id])
+    
+  end
+
 end
