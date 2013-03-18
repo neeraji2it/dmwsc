@@ -17,9 +17,9 @@
 <td></td>
 <td><%=used.created_at.strftime("%m/%d")%></td>
 <td><%=used.start_time.strftime("%I:%M %p")%></td>
-<td><%=used.end_time.strftime("%I:%M %p")%></td>
-<td><%=timesheet_duration(used.end_time - used.start_time)%></td>
-<td><%=timesheet_used(used.end_time - used.start_time)%></td>
+<td><%=used.end_time.strftime("%I:%M %p") rescue "None"%></td>
+<td><%=timesheet_duration(used.end_time - used.start_time)  rescue "None"%></td>
+<td><%=timesheet_used(used.end_time - used.start_time)  rescue "None"%></td>
 <td></td>
 </tr>
 <%end%>

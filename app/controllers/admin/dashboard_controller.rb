@@ -19,7 +19,7 @@ class Admin::DashboardController < ApplicationController
   def customer_dashboard
     session[:customer_id] = params[:id]
     @customer = Customer.find(session[:customer_id])
-    @time_sheets = @customer.time_sheet_entries
+    @time_sheets = @customer.time_sheet_entries.except(:order).order('start_time desc')
   end
 
 end

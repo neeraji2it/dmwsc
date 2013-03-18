@@ -1,6 +1,6 @@
 <% unless @customers.empty?
 @customers.each do |cust|%>
-<%=link_to "#{cust.first_name} #{cust.last_name}", customer_dashboard_admin_dashboard_index_path(:id => cust.id)%>
+<%=link_to "#{cust.first_name} #{cust.last_name}", customer_dashboard_admin_dashboard_index_path(:id => cust.id)%><br/>
 <%end
 else%>
 No User Found
