@@ -1011,3 +1011,7 @@ body,html{
     font-style: normal;
     color: white;
 }
+.list_buttons{
+    width: 100px;
+    float: none;
+}

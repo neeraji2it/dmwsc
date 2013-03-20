@@ -1,0 +1,5 @@
+<h2>Staff dashboard</h2>
+Purchase <%=session[:hours].split('_')[0] unless session[:hours].nil?%> hours for $<%=session[:hours].split('_')[1] unless session[:hours].nil?%> using cash<br/>
+<div class= "list_grid_but list_buttons"><%=link_to "Conform",conform_purchase_admin_dashboard_index_path(:selected => "conform")%></div>
+<div class= "list_grid_but list_buttons"><%=link_to "Edit",conform_purchase_admin_dashboard_index_path(:selected => "edit")%></div>
+<div class= "list_grid_but list_buttons"><%=link_to "Cancel",conform_purchase_admin_dashboard_index_path(:selected => "cancel")%></div>

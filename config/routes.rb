@@ -87,6 +87,8 @@ Stripetest::Application.routes.draw do
        post :fetch_users
        get :customer_dashboard
        get :add_hours
+       post :add_hours_info
+       get :conform_purchase
       end
     end
   end

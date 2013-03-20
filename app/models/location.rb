@@ -1,5 +1,6 @@
 class Location < ActiveRecord::Base
 
+  attr_accessible :name
   has_many :payments
   has_many :seat_rates, :order => 'min_dollars ASC'
 

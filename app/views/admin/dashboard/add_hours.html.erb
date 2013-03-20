@@ -1,2 +1,21 @@
 <h2>Staff dashboard</h2>
-<%=@customer.payments.build%>
+<%=form_tag add_hours_info_admin_dashboard_index_path do%>
+Options:<br/>
+
+<%=radio_button_tag 'hours_amount', '4_10'%> 4hrs $10 <br/>
+<%=radio_button_tag 'hours_amount', '10_20'%> 10hrs $20 <br/>
+<%=radio_button_tag 'hours_amount', '40_70'%> 40hrs $70 <br/>
+
+Payment method:<br/>
+
+<%=radio_button_tag 'payment_option', 'cash'%> Cash <br/>
+<%=radio_button_tag 'payment_option', 'card'%> Credit card <br/>
+
+<%=submit_tag "Continue"%>
+<%end%>
+<%unless session[:hours].nil? || session[:payment_option].nil?%>
+<script type="text/javascript">
+$("#hours_amount_<%=session[:hours]%>").attr("checked", "checked");
+$("#payment_option_<%=session[:payment_option]%>").attr("checked", "checked");
+</script>
+<%end%>
