@@ -91,7 +91,11 @@ class Customer < ActiveRecord::Base
   def add_remining_minutes(m)
     last_time_sheet_entry = time_sheet_entries.last
     if last_time_sheet_entry
+      begin
       last_time_sheet_entry.remining_minits += m 
+      rescue
+      last_time_sheet_entry.remining_minits = m 
+      end
       last_time_sheet_entry.save
     end
   end
