@@ -47,6 +47,7 @@ class TimeSheet < ActiveRecord::Base
     tse = time_sheet_entries.last
     tse.end_time = Time.now
     tse.internal_user_end = iu
+    tse.cal_remining_minits
     tse.save!
 
     # XXX JBB: First use payments with remaining value, then calculate minimum

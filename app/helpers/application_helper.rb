@@ -21,4 +21,8 @@ module ApplicationHelper
 	return "#{hours.round(2)} hrs "
   end
 
+  def cal_time_with_minutes(total_seconds)
+    hours = total_seconds.to_f / 60
+    return "#{hours.round(2)} hrs"
+  end
 end

@@ -89,6 +89,8 @@ Stripetest::Application.routes.draw do
        get :add_hours
        post :add_hours_info
        get :conform_purchase
+       get :pos_conformation_step
+       post :pos_conformation
       end
     end
   end

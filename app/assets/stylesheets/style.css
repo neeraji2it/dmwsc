@@ -1008,10 +1008,25 @@ body,html{
     background-color: #555;
     cursor: pointer;
     padding: 5px;
-    font-style: normal;
+    text-decoration: none;
     color: white;
 }
 .list_buttons{
     width: 100px;
     float: none;
 }
+.add_table {background-color:  #FFF; width: 460px;}
+.add_table .whide{width:  230px;}
+.add_table td,.usage_summary td{text-align:  center;}
+.usage_summary{width: 460px;}
+.usage_summary thead{background-color: #AAA;}
+.usage_summary .odd {background-color:  #FFF;}
+.payment_conformation{
+    padding: 4px;
+    background-color: #555;
+    float: right;
+    margin-right: 55%;
+    margin-top: -25px;
+    }
+.payment_conformation:hover, .list_grid_but a:hover{background-color: #AAA;}
+.payment_conformation a{color: white;text-decoration: none;}

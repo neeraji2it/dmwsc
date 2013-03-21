@@ -22,7 +22,7 @@ class Location < ActiveRecord::Base
   def minutes_for_dollars(payment_dollars)
     sr = seat_rate_for_dollars(payment_dollars)
     rate = sr.minutes_per_dollar
-    payment_dollars * rate
+     payment_dollars * rate
   end
 
   def dollars_for_minutes(payment_dollars, target_minutes)

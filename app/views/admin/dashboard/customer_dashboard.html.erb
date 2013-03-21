@@ -1,6 +1,23 @@
 <h2>Staff dashboard</h2>
+<%unless session[:payment].nil? || @payment.nil?%>
+<h3>Confirmed! <%=@payment.minutes/60%> hours added. Please collect
+$<%=@payment.amount%> to complete purchase.
+</h3>
+<table class="add_table">
+<tr>
+<td><%=@payment.created_at.strftime("%m/%d")%></td>
+<td><%=@payment.created_at.strftime("%I:%M %p")%></td>
+<td class="whide">Added <%=@payment.minutes/60%> hrs</td>
+<td><%=@payment.minutes/60%> hrs</td>
+</tr>
+</table>
+<%if @payment.pos_status.blank?%>
+	<div class="payment_conformation"><%=link_to 'Conform', pos_conformation_step_admin_dashboard_index_path%></div>
+<%end%>
+<%else%>
 <h3><%=@customer.first_name+" "+@customer.last_name %> – Usage Summary</h3>
-<table>
+<%end%>
+<table class="usage_summary">
 <thead>
 <th>
 <td>Date</td>
@@ -12,15 +29,15 @@
 </th>
 </thead>
 <tbody>
-<%@time_sheets.each do |used|%>
-<tr>
+<%@time_sheets.each_with_index do |used,i|%>
+<tr class="<%=i.even? ? "even" : "odd"%>">
 <td></td>
 <td><%=used.created_at.strftime("%m/%d")%></td>
 <td><%=used.start_time.strftime("%I:%M %p")%></td>
 <td><%=used.end_time.strftime("%I:%M %p") rescue "None"%></td>
 <td><%=timesheet_duration(used.end_time - used.start_time)  rescue "None"%></td>
 <td><%=timesheet_used(used.end_time - used.start_time)  rescue "None"%></td>
-<td></td>
+<td><%=cal_time_with_minutes(used.remining_minits) rescue "None"%></td>
 </tr>
 <%end%>
 </tbody>

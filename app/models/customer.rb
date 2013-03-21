@@ -88,6 +88,14 @@ class Customer < ActiveRecord::Base
     end
   end
 
+  def add_remining_minutes(m)
+    last_time_sheet_entry = time_sheet_entries.last
+    if last_time_sheet_entry
+      last_time_sheet_entry.remining_minits += m 
+      last_time_sheet_entry.save
+    end
+  end
+
   def balance
     total_paid - current_charges - total_charges
   end
