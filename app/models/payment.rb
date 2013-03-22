@@ -16,6 +16,7 @@ class Payment < ActiveRecord::Base
     :discount => 3,
     :discount_reduced => 4 }
   FLAVOR_IDS = FLAVORS.invert
+
   include Flavors
 
   TENDER = {
