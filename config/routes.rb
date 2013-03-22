@@ -91,6 +91,9 @@ Stripetest::Application.routes.draw do
        get :conform_purchase
        get :pos_conformation_step
        post :pos_conformation
+       get :add_free_hours
+       post :add_free_hours_info
+       post :conform_free_hours
       end
     end
   end

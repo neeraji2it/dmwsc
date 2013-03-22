@@ -1,0 +1,5 @@
+<h2>Staff dashboard</h2>
+<%=@customer.first_name+" "+@customer.last_name%> – <%=session[:hours]%> hours FREE<br/>
+<div class= "list_grid_but list_buttons"><%=link_to "Conform",conform_free_hours_admin_dashboard_index_path(:selected => "conform")%></div>
+<div class= "list_grid_but list_buttons"><%=link_to "Edit",conform_free_hours_admin_dashboard_index_path(:selected => "edit")%></div>
+<div class= "list_grid_but list_buttons"><%=link_to "Cancel",conform_free_hours_admin_dashboard_index_path(:selected => "cancel")%></div>

@@ -1,15 +1,8 @@
-mysql:
- hostname: localhost
- port: 3306
- socket: /tmp/mysql.sock
- username: root
- password: 
- database: ws_cafe_development
-
-destination:
- postgres:
-  hostname: localhost
-  port: 5432
-  username: postgres
-  password: postgres
+development:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
   database: ws_cafe_development
+  pool: 5
+  username: root
+  password:

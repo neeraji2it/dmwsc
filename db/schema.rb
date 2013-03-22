@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(:version => 20130321171919) do
     t.datetime "created_at",                                                     :null => false
     t.datetime "updated_at",                                                     :null => false
     t.string   "pos_status"
-    t.string   "staf_details"
+    t.string   "staff_details"
   end
 
   create_table "seat_rates", :force => true do |t|

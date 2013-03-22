@@ -1,8 +1,10 @@
 <h2>Staff dashboard</h2>
-<%unless session[:payment].nil? || @payment.nil?%>
+<%unless (session[:payment].nil? || @payment.nil?) && session[:free_payment].nil?%>
+<% if session[:free_payment].nil? %>
 <h3>Confirmed! <%=@payment.minutes/60%> hours added. Please collect
 $<%=@payment.amount%> to complete purchase.
 </h3>
+<%end%>
 <table class="add_table">
 <tr>
 <td><%=@payment.created_at.strftime("%m/%d")%></td>
@@ -11,9 +13,10 @@ $<%=@payment.amount%> to complete purchase.
 <td><%=@payment.minutes/60%> hrs</td>
 </tr>
 </table>
-<%if @payment.pos_status.blank?%>
+<%if @payment.pos_status.blank? && session[:free_payment].nil?%>
 	<div class="payment_conformation"><%=link_to 'Conform', pos_conformation_step_admin_dashboard_index_path%></div>
 <%end%>
+<%session[:free_payment] = nil unless session[:free_payment].nil?%>
 <%else%>
 <h3><%=@customer.first_name+" "+@customer.last_name %> – Usage Summary</h3>
 <%end%>
@@ -43,6 +46,6 @@ $<%=@payment.amount%> to complete purchase.
 </tbody>
 </table>
 <div>
-<div><div class= "list_grid_but"><a href="<%=add_hours_admin_dashboard_index_url%>">Add hours</a></div><div class= "list_grid_but"><a href="#">Free</a></div></div>
+<div><div class= "list_grid_but"><a href="<%=add_hours_admin_dashboard_index_url%>">Add hours</a></div><div class= "list_grid_but"><%=link_to "Free", add_free_hours_admin_dashboard_index_path%></div></div>
 <div><div class= "list_grid_but"><a href="#">Remove hours</a></div><div class= "list_grid_but"><a href="#">Paid</a></div></div>
 </div>
