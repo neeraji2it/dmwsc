@@ -45,7 +45,7 @@ module ApplicationHelper
     elsif a_minits > 0
       return "Unused"
     elsif (a_minits + payment.minutes) > 0
-      return "#{((a_minits + payment.minutes)/60).round(1)} hr used"
+      return "#{((-a_minits)/60).round(1)} hr used"
     else
       return "Already used"
     end
