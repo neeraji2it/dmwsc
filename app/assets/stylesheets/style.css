@@ -1017,10 +1017,12 @@ body,html{
 }
 .add_table {background-color:  #FFF; width: 460px;}
 .add_table .whide{width:  230px;}
-.add_table td,.usage_summary td{text-align:  center;}
+.add_table td,.usage_summary td, .payment_summary td{text-align:  center;}
 .usage_summary{width: 460px;}
-.usage_summary thead{background-color: #AAA;}
+.payment_summary{width: 600px;}
+.usage_summary thead, .payment_summary thead{background-color: #AAA;}
 .usage_summary .odd {background-color:  #FFF;}
+.payment_summary tr:hover{background-color:  #FFF;cursor: pointer;}
 .payment_conformation{
     padding: 4px;
     background-color: #555;

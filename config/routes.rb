@@ -94,6 +94,8 @@ Stripetest::Application.routes.draw do
        get :add_free_hours
        post :add_free_hours_info
        post :conform_free_hours
+       get :payment_list
+       post :payment_refund
       end
     end
   end

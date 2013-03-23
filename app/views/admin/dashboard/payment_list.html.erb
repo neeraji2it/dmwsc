@@ -1,0 +1,34 @@
+<h2>Staff dashboard</h2>
+<%=form_tag payment_refund_admin_dashboard_index_path, :class => "pay_ment_form" do%>
+<table class="payment_summary">
+<thead>
+<th>
+<td>Date</td>
+<td>Hours</td>
+<td>Paid</td>
+<td>Payment Method</td>
+<td>Status</td>
+
+</th>
+</thead>
+<tbody>
+<%@payments.each do |payment|%>
+<%@availabule_minits -=payment.minutes%>
+<tr class="pay_row">
+<td><%=radio_button_tag 'payment', payment.id%></td>
+<td><%=payment.created_at.strftime("%m/%d")%></td>
+<td><%=(payment.minutes/60).round(1)%></td>
+<td>$<%=payment.amount%></td>
+<td><%=payment_type(payment.payment_type)%></td>
+<td><%=payment_status(payment, @availabule_minits)%></td>
+</tr>
+<%end%>
+</tbody>
+</table>
+<%end%>
+<script type="text/javascript">
+$('.pay_row').click(function(){
+$(this).find('input').attr("checked", "checked");
+$('.pay_ment_form').submit();
+});
+</script>

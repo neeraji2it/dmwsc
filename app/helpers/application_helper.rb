@@ -25,4 +25,29 @@ module ApplicationHelper
     hours = total_seconds.to_f / 60
     return "#{hours.round(2)} hrs"
   end
+
+  def payment_type(type)
+    case type
+    when '1'
+      return "Cash"
+    when '2'
+      return "Free"
+    when '3'
+      return "Stripe"
+    when '4'
+      return "Creadit Card"
+    end
+  end
+
+  def payment_status(payment, a_minits)
+    if payment.amount == 0
+      return "Cannot refund (free)"
+    elsif a_minits > 0
+      return "Unused"
+    elsif (a_minits + payment.minutes) > 0
+      return "#{((a_minits + payment.minutes)/60).round(1)} hr used"
+    else
+      return "Already used"
+    end
+  end
 end

@@ -10,6 +10,13 @@ class Payment < ActiveRecord::Base
   belongs_to :location
   belongs_to :internal_user
 
+  PAY_TYPE ={
+    :CASH => 1,
+    :FREE => 2,
+    :STRIPE => 3,
+    :CREADIT_CARD => 4
+  }
+
   FLAVORS = {
     :cc_payment => 1,
     :cc_refund => 2,

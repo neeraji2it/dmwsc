@@ -101,9 +101,18 @@ class Admin::DashboardController < ApplicationController
     when "edit"
       redirect_to add_free_hours_admin_dashboard_index_path
     when "cancel"
-      session[:hours], session[:description], session[:staff_details] = nil, nil, nil
+      session[:hours], session[:description], session[:staff_details]  = nil, nil, nil
       redirect_to add_free_hours_admin_dashboard_index_path
     end
   end
 
+  def payment_list
+    customer = Customer.find(session[:customer_id])
+    @availabule_minits = customer.time_sheet_entries.last.remining_minits
+    @payments = customer.payments
+  end
+
+  def payment_refund
+    
+  end
 end

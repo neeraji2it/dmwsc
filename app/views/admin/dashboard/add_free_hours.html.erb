@@ -5,3 +5,10 @@ Reason / comment: <%=text_field_tag "description"%><br/><br/>
 Staff initials: <%=text_field_tag "staff_details"%><br/><br/>
 <%=submit_tag "Submit"%>
 <%end%>
+<%unless session[:hours].nil? || session[:description].nil? || session[:staff_details].nil?%>
+<script type="text/javascript">
+$("#num_hours").val('<%=session[:hours]%>');
+$("#description").val('<%=session[:description]%>');
+$("#staff_details").val('<%=session[:staff_details]%>');
+</script>
+<%end%>

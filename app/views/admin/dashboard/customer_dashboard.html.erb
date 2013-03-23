@@ -47,5 +47,5 @@ $<%=@payment.amount%> to complete purchase.
 </table>
 <div>
 <div><div class= "list_grid_but"><a href="<%=add_hours_admin_dashboard_index_url%>">Add hours</a></div><div class= "list_grid_but"><%=link_to "Free", add_free_hours_admin_dashboard_index_path%></div></div>
-<div><div class= "list_grid_but"><a href="#">Remove hours</a></div><div class= "list_grid_but"><a href="#">Paid</a></div></div>
+<div><div class= "list_grid_but"><%=link_to "Remove hours",payment_list_admin_dashboard_index_path%></div><div class= "list_grid_but"><a href="#">Paid</a></div></div>
 </div>

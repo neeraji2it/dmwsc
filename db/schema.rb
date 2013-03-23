@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130321171919) do
+ActiveRecord::Schema.define(:version => 20130323135803) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -60,18 +60,19 @@ ActiveRecord::Schema.define(:version => 20130321171919) do
   end
 
   create_table "payments", :force => true do |t|
-    t.integer  "customer_id",                                                    :null => false
-    t.integer  "flavor",                                                         :null => false
-    t.decimal  "amount",           :precision => 8, :scale => 2,                 :null => false
+    t.integer  "customer_id",                                                     :null => false
+    t.integer  "flavor",                                                          :null => false
+    t.decimal  "amount",           :precision => 8, :scale => 2,                  :null => false
     t.integer  "minutes"
     t.integer  "location_id"
     t.decimal  "remaining_amount", :precision => 8, :scale => 2
     t.integer  "internal_user_id"
-    t.string   "description",                                    :default => "", :null => false
-    t.datetime "created_at",                                                     :null => false
-    t.datetime "updated_at",                                                     :null => false
+    t.string   "description",                                    :default => "",  :null => false
+    t.datetime "created_at",                                                      :null => false
+    t.datetime "updated_at",                                                      :null => false
     t.string   "pos_status"
     t.string   "staff_details"
+    t.string   "payment_type",                                   :default => "1"
   end
 
   create_table "seat_rates", :force => true do |t|
