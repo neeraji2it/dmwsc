@@ -37,7 +37,7 @@ class Admin::DashboardController < ApplicationController
   def conform_purchase
     case params["selected"]
     when "conform"
-      payment = Payment.new(:flavor => 1, :customer_id => session[:customer_id],:internal_user_id => 1, :amount => session[:hours].split('_')[1].to_i, :location_id => 1)
+      payment = Payment.new(:payment_type =>session[:payment_option], :flavor => 1, :customer_id => session[:customer_id],:internal_user_id => 1, :amount => session[:hours].split('_')[1].to_i, :location_id => 1)
       if payment.save
         payment.update_column(:minutes, (session[:hours].split('_')[0].to_i*60))
         session[:hours], session[:payment_option] = nil, nil
@@ -86,7 +86,7 @@ class Admin::DashboardController < ApplicationController
   def conform_free_hours
     case params["selected"]
     when "conform"
-      payment = Payment.new(:flavor => 1, :customer_id => session[:customer_id], :description => session[:description],
+      payment = Payment.new(:payment_type => 2, :flavor => 1, :customer_id => session[:customer_id], :description => session[:description],
                             :internal_user_id => 1, :amount => 0, :location_id => 1, :staff_details => session[:staff_details])
       if payment.save
         payment.update_column(:minutes, (session[:hours].to_i*60))

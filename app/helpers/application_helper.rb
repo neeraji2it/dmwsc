@@ -40,7 +40,7 @@ module ApplicationHelper
   end
 
   def payment_status(payment, a_minits)
-    if payment.amount == 0
+    if payment.amount == 0 && payment.payment_type == Payment::PAY_TYPE[:FREE]
       return "Cannot refund (free)"
     elsif a_minits > 0
       return "Unused"

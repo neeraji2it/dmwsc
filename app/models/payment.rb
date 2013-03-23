@@ -4,7 +4,8 @@ class Payment < ActiveRecord::Base
   define_model_callbacks :create, :only => :before
   before_create :action_before_create
 
-  attr_accessible :amount, :minutes, :flavor, :customer_id, :internal_user_id, :location_id, :description, :staff_details
+  attr_accessible :amount, :minutes, :flavor, :customer_id, :internal_user_id,
+                  :location_id, :description, :staff_details, :payment_type
 
   belongs_to :customer
   belongs_to :location
