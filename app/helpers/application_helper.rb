@@ -40,8 +40,10 @@ module ApplicationHelper
   end
 
   def payment_status(payment, a_minits)
-    if payment.amount == 0 && payment.payment_type == Payment::PAY_TYPE[:FREE]
+    if payment.amount == 0 && payment.payment_type.to_i == Payment::PAY_TYPE[:FREE]
       return "Cannot refund (free)"
+    elsif payment.flavor == Payment::FLAVORS[:cc_refund]
+      return "Cannot refund (already refunded)"
     elsif a_minits > 0
       return "Unused"
     elsif (a_minits + payment.minutes) > 0
@@ -50,4 +52,23 @@ module ApplicationHelper
       return "Already used"
     end
   end
+
+  def get_id_for_payment_list(payment, a_minits)
+    if payment.amount == 0 && payment.payment_type.to_i == Payment::PAY_TYPE[:FREE]
+      return "#{payment.id}_free"
+    elsif payment.flavor == Payment::FLAVORS[:cc_refund]
+      return "#{payment.id}_refunded"
+    elsif a_minits > 0
+      return "#{payment.id}_#{payment.minutes}"
+    elsif (a_minits + payment.minutes) > 0
+      return "#{payment.id}_#{(-a_minits)}"
+    else
+      return "#{payment.id}_used"
+    end
+  end
+
+  def find_refund_amount(tot_amount, tot_time, reming_time)
+    req_amount = ((reming_time.to_f / tot_time.to_f) * tot_amount.to_i).round(2)
+  end
+
 end

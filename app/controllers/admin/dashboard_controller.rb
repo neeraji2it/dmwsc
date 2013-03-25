@@ -113,6 +113,48 @@ class Admin::DashboardController < ApplicationController
   end
 
   def payment_refund
-    
+    customer = Customer.find(session[:customer_id])
+    session[:refund_payment] = params["payment"].split('_') unless params["payment"].nil?
+    if session[:refund_payment][1] == 'free'
+    flash[:alert] = "Can't refund free minutes"
+    redirect_to :back
+    elsif session[:refund_payment][1] == 'used'
+    flash[:alert] = "Can't refund Already used minutes"
+    redirect_to :back
+    elsif session[:refund_payment][1] == 'refunded'
+    flash[:alert] = "Can't refund Already refunded minutes"
+    redirect_to :back
+    else
+      if session[:refund_payment][1].to_i < customer.refundable_minits
+        @refund_payment = customer.payments.where(:id => session[:refund_payment][0].to_i).first
+        if @refund_payment.nil?
+          flash[:alert] = "You dont have this in your payment history."
+          redirect_to :back
+        else
+          session[:refund_payment_id] = @refund_payment.id
+        end
+      else
+        flash[:alert] = "You dont have sufficient payment history."
+        redirect_to :back
+      end
+    end
   end
+
+  def conform_refund
+    case params["selected"]
+    when "conform"
+      payment = Payment.find(session[:refund_payment_id])
+      payment.update_column(:flavor, Payment::FLAVORS[:cc_refund])
+      payment.save
+      customer = Customer.find(session[:customer_id])
+      customer.add_remining_minutes((-session[:refund_payment][1].to_i))
+      redirect_to customer_dashboard_admin_dashboard_index_path
+    when "edit"
+      redirect_to payment_list_admin_dashboard_index_path
+    when "cancel"
+      session[:refund_payment], session[:refund_payment_id] = nil, nil
+      redirect_to payment_list_admin_dashboard_index_path
+    end
+  end
+
 end

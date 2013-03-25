@@ -1032,3 +1032,4 @@ body,html{
     }
 .payment_conformation:hover, .list_grid_but a:hover{background-color: #AAA;}
 .payment_conformation a{color: white;text-decoration: none;}
+.error_alert{color: red;}

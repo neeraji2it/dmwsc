@@ -100,6 +100,11 @@ class Customer < ActiveRecord::Base
     end
   end
 
+  #Caliculate remining refundable minutes
+  def refundable_minits
+    self.payments.where(:flavor => 1).map(&:minutes).sum
+  end
+
   def balance
     total_paid - current_charges - total_charges
   end

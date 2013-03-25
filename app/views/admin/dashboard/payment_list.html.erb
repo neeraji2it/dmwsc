@@ -1,4 +1,5 @@
 <h2>Staff dashboard</h2>
+<div class="error_alert"><%=flash[:alert] unless flash[:alert].nil? %></div>
 <%=form_tag payment_refund_admin_dashboard_index_path, :class => "pay_ment_form" do%>
 <table class="payment_summary">
 <thead>
@@ -15,7 +16,7 @@
 <%@payments.each do |payment|%>
 <%@availabule_minits -=payment.minutes%>
 <tr class="pay_row">
-<td><%=radio_button_tag 'payment', payment.id%></td>
+<td><%=radio_button_tag 'payment', get_id_for_payment_list(payment, @availabule_minits)%></td>
 <td><%=payment.created_at.strftime("%m/%d")%></td>
 <td><%=(payment.minutes/60).round(1)%></td>
 <td>$<%=payment.amount%></td>
