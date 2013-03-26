@@ -11,7 +11,7 @@ Payment method:<br/>
 <%=radio_button_tag 'payment_option', '1'%> Cash <br/>
 <%=radio_button_tag 'payment_option', '4'%> Credit card <br/>
 
-<%=submit_tag "Continue"%>
+<%=submit_tag "Continue", :class => "submit_button"%>
 <%end%>
 <%unless session[:hours].nil? || session[:payment_option].nil?%>
 <script type="text/javascript">

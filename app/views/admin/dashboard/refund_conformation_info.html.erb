@@ -3,5 +3,5 @@
 <%=@payment.payment_type == Payment::PAY_TYPE[:STRIPE] ? "Stripe refund" : "POS refund"%> confirmation #: <%=text_field_tag :confomation%><br/><br/>
 Reason / comment: <%=text_field_tag "description"%><br/><br/>
 Staff initials: <%=text_field_tag "staff_details"%><br/><br/>
-<%=submit_tag "Submit"%>
+<%=submit_tag "Submit", :class => "submit_button"%>
 <%end%>

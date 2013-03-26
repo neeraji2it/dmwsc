@@ -15,7 +15,9 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+<%unless session[:user_id].nil?%>
+<%=link_to "Logout", "/admin/logout"%>
+<%end%>
 <%= render :partial => "layouts/flash_notices" %>
 
 <%= yield %>

@@ -1,8 +1,11 @@
 <%unless flash[:alert].nil?%>
 <%=flash[:alert]%>
 <%end%>
+<div class="center_div">
+	<h3>Staff Login Panel</h3>
 <%=form_tag admin_session_index_path do %>
-<%=text_field_tag "email"%><br/>
-<%=text_field_tag "password"%><br/>
-<%=submit_tag "Login"%>
+Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : <%=text_field_tag "email"%><br/><br/>
+Password : <%=text_field_tag "password"%><br/><br/>
+<%=submit_tag "Login", :class => "submit_button"%>
+</div>
 <%end%>

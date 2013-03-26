@@ -3,7 +3,7 @@
 Number of hours: <%=text_field_tag "num_hours"%><br/><br/>
 Reason / comment: <%=text_field_tag "description"%><br/><br/>
 Staff initials: <%=text_field_tag "staff_details"%><br/><br/>
-<%=submit_tag "Submit"%>
+<%=submit_tag "Submit", :class => "submit_button" %>
 <%end%>
 <%unless session[:hours].nil? || session[:description].nil? || session[:staff_details].nil?%>
 <script type="text/javascript">

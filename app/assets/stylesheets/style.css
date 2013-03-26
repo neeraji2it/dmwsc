@@ -1033,3 +1033,14 @@ body,html{
 .payment_conformation:hover, .list_grid_but a:hover{background-color: #AAA;}
 .payment_conformation a{color: white;text-decoration: none;}
 .error_alert{color: red;}
+.submit_button{
+    background-color: #555;
+    cursor: pointer;
+    color: white;
+    margin: 11px 19px;
+    border: 0px;
+    font-weight: bold;
+    padding: 5px;
+}
+.submit_button:hover{background-color: #AAA;}
+.center_div{padding-left: 35%;padding-right: 35%;padding-top: 20px;}
