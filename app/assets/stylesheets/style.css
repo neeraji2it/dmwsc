@@ -1044,3 +1044,19 @@ body,html{
 }
 .submit_button:hover{background-color: #AAA;}
 .center_div{padding-left: 35%;padding-right: 35%;padding-top: 20px;}
+.admin_header{width: 100%;
+    background-color: #EEEEEE;
+    height: 20px;
+    padding: 5px;
+}
+.admin_header a{
+    cursor: pointer;
+    padding: 2px;
+    text-decoration: none;
+    color: #555;
+}
+.admin_header a:hover{
+    background-color: #AAA;
+}
+.left{float: left;}
+.right{float: right;}

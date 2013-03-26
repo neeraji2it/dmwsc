@@ -16,7 +16,10 @@
 </head>
 <body>
 <%unless session[:user_id].nil?%>
-<%=link_to "Logout", "/admin/logout"%>
+<div class="admin_header">
+<%=link_to "Admin Home", "/admin", :class=>"left"%>
+<%=link_to "Logout", "/admin/logout", :class=>"right"%>
+</div>
 <%end%>
 <%= render :partial => "layouts/flash_notices" %>
 
