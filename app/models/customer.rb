@@ -105,6 +105,11 @@ class Customer < ActiveRecord::Base
     self.payments.where(:flavor => 1).map(&:minutes).sum
   end
 
+  #Latest available minutes
+  def lat_total_in_account
+    time_sheet_entries.last.remining_minits
+  end
+
   def balance
     total_paid - current_charges - total_charges
   end

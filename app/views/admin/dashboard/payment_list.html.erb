@@ -14,7 +14,7 @@
 </thead>
 <tbody>
 <%@payments.each do |payment|%>
-<%@availabule_minits -=payment.minutes%>
+<%@availabule_minits -=payment.minutes  unless payment.flavor == Payment::FLAVORS[:cc_refund]%>
 <tr class="pay_row">
 <td><%=radio_button_tag 'payment', get_id_for_payment_list(payment, @availabule_minits)%></td>
 <td><%=payment.created_at.strftime("%m/%d")%></td>

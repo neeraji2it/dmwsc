@@ -97,6 +97,8 @@ Stripetest::Application.routes.draw do
        get :payment_list
        post :payment_refund
        post :conform_refund
+       get :refund_conformation_info
+       post :refund_conformation_final
       end
     end
   end

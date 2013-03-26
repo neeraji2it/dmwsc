@@ -101,10 +101,10 @@ private
         errors.add(:remaining_amount, msg)
       end
     when :cc_refund, :discount_reduced
-      if (self.amount > (0.0).to_d)
-        msg = "for #{fs.to_s.titleize} must be negative, got $#{amount.to_s}"
-        errors.add(:amount, msg)
-      end
+      # if (self.amount > (0.0).to_d)
+      #   msg = "for #{fs.to_s.titleize} must be negative, got $#{amount.to_s}"
+      #   errors.add(:amount, msg)
+      # end
     end
   end
 

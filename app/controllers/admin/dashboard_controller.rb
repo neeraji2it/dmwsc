@@ -21,6 +21,7 @@ class Admin::DashboardController < ApplicationController
     @customer = Customer.find(session[:customer_id])
     @payment = @customer.payments.find(session[:payment]) unless session[:payment].nil? rescue nil
     @payment = @customer.payments.find(session[:free_payment]) unless session[:free_payment].nil? rescue nil
+    @payment = @customer.payments.find(session[:refund_payment_id]) unless session[:refund_payment_id].nil? rescue nil
     @time_sheets = @customer.time_sheet_entries.except(:order).order('start_time desc')
   end
 
@@ -144,7 +145,8 @@ class Admin::DashboardController < ApplicationController
     case params["selected"]
     when "conform"
       payment = Payment.find(session[:refund_payment_id])
-      payment.update_column(:flavor, Payment::FLAVORS[:cc_refund])
+      payment.flavor = Payment::FLAVORS[:cc_refund]
+      payment.pos_status = nil
       payment.save
       customer = Customer.find(session[:customer_id])
       customer.add_remining_minutes((-session[:refund_payment][1].to_i))
@@ -153,7 +155,26 @@ class Admin::DashboardController < ApplicationController
       redirect_to payment_list_admin_dashboard_index_path
     when "cancel"
       session[:refund_payment], session[:refund_payment_id] = nil, nil
-      redirect_to payment_list_admin_dashboard_index_path
+      redirect_to customer_dashboard_admin_dashboard_index_path
+    end
+  end
+
+  def refund_conformation_info
+    @payment = Payment.find(session[:refund_payment_id])
+  end
+
+  def refund_conformation_final
+    payment = Payment.find(session[:refund_payment_id])
+    payment.pos_status = params["confomation"]
+    payment.description = params["description"]
+    payment.staff_details = params["staff_details"]
+    if payment.save
+      session[:refund_payment] = nil
+    redirect_to customer_dashboard_admin_dashboard_index_path
+    else
+      p 1111111111
+      p payment.errors
+      redirect_to :back
     end
   end
 

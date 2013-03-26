@@ -13,12 +13,28 @@ $<%=@payment.amount%> to complete purchase.
 <td><%=@payment.minutes/60%> hrs</td>
 </tr>
 </table>
+<%=@payment.pos_status%>
 <%if @payment.pos_status.blank? && session[:free_payment].nil?%>
 	<div class="payment_conformation"><%=link_to 'Conform', pos_conformation_step_admin_dashboard_index_path%></div>
 <%end%>
 <%session[:free_payment] = nil unless session[:free_payment].nil?%>
 <%else%>
+<%if session[:refund_payment_id]&&session[:refund_payment]&&@payment%>
+<table class="add_table">
+<tr>
+<td><%=@payment.created_at.strftime("%m/%d")%></td>
+<td><%=@payment.created_at.strftime("%I:%M %p")%></td>
+<td class="whide">Removed <%=session[:refund_payment][1].to_i/60%> hrs</td>
+<td><%=@customer.lat_total_in_account/60%> hrs</td>
+</tr>
+</table>
+<%if @payment.pos_status.blank? %>
+	<div class="payment_conformation"><%=link_to 'Conform', refund_conformation_info_admin_dashboard_index_path%></div>
+<%end%>
+<%session[:refund_payment_id] = nil unless session[:refund_payment_id].nil? || @payment.pos_status.blank?%>
+<%else%>
 <h3><%=@customer.first_name+" "+@customer.last_name %> – Usage Summary</h3>
+<%end%>
 <%end%>
 <table class="usage_summary">
 <thead>
