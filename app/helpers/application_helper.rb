@@ -35,7 +35,7 @@ module ApplicationHelper
     when '3'
       return "Stripe"
     when '4'
-      return "Creadit Card"
+      return "Credit Card"
     end
   end
 

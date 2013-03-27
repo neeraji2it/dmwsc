@@ -1023,15 +1023,15 @@ body,html{
 .usage_summary thead, .payment_summary thead{background-color: #AAA;}
 .usage_summary .odd {background-color:  #FFF;}
 .payment_summary tr:hover{background-color:  #FFF;cursor: pointer;}
-.payment_conformation{
+.payment_confirmation{
     padding: 4px;
     background-color: #555;
     float: right;
     margin-right: 55%;
     margin-top: -25px;
     }
-.payment_conformation:hover, .list_grid_but a:hover{background-color: #AAA;}
-.payment_conformation a{color: white;text-decoration: none;}
+.payment_confirmation:hover, .list_grid_but a:hover{background-color: #AAA;}
+.payment_confirmation a{color: white;text-decoration: none;}
 .error_alert{color: red;}
 .submit_button{
     background-color: #555;

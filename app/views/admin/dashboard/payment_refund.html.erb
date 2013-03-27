@@ -1,6 +1,6 @@
 <h2>Staff dashboard</h2>
 <h3>Remove <%=(session[:refund_payment][1].to_f/60).round(2)%> hours and refund $<%=find_refund_amount(@refund_payment.amount, @refund_payment.minutes, session[:refund_payment][1].to_i)%> in <%=payment_type(@refund_payment.payment_type)%></h3>
 
-<div class= "list_grid_but list_buttons"><%=link_to "Conform",conform_refund_admin_dashboard_index_path(:selected => "conform")%></div>
-<div class= "list_grid_but list_buttons"><%=link_to "Edit",conform_refund_admin_dashboard_index_path(:selected => "edit")%></div>
-<div class= "list_grid_but list_buttons"><%=link_to "Cancel",conform_refund_admin_dashboard_index_path(:selected => "cancel")%></div>
+<div class= "list_grid_but list_buttons"><%=link_to "Confirm",confirm_refund_admin_dashboard_index_path(:selected => "confirm")%></div>
+<div class= "list_grid_but list_buttons"><%=link_to "Edit",confirm_refund_admin_dashboard_index_path(:selected => "edit")%></div>
+<div class= "list_grid_but list_buttons"><%=link_to "Cancel",confirm_refund_admin_dashboard_index_path(:selected => "cancel")%></div>

@@ -86,19 +86,20 @@ Stripetest::Application.routes.draw do
       collection do
        post :fetch_users
        get :customer_dashboard
+       get :add_hours_page
        get :add_hours
        post :add_hours_info
-       get :conform_purchase
-       get :pos_conformation_step
-       post :pos_conformation
+       get :confirm_purchase
+       get :pos_confirmation_step
+       post :pos_confirmation
        get :add_free_hours
        post :add_free_hours_info
-       post :conform_free_hours
+       post :confirm_free_hours
        get :payment_list
        post :payment_refund
-       post :conform_refund
-       get :refund_conformation_info
-       post :refund_conformation_final
+       post :confirm_refund
+       get :refund_confirmation_info
+       post :refund_confirmation_final
       end
     end
   end

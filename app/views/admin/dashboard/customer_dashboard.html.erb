@@ -13,9 +13,8 @@ $<%=@payment.amount%> to complete purchase.
 <td><%=@payment.minutes/60%> hrs</td>
 </tr>
 </table>
-<%=@payment.pos_status%>
 <%if @payment.pos_status.blank? && session[:free_payment].nil?%>
-	<div class="payment_conformation"><%=link_to 'Conform', pos_conformation_step_admin_dashboard_index_path%></div>
+	<div class="payment_confirmation"><%=link_to 'Confirm', pos_confirmation_step_admin_dashboard_index_path%></div>
 <%end%>
 <%session[:free_payment] = nil unless session[:free_payment].nil?%>
 <%else%>
@@ -29,7 +28,7 @@ $<%=@payment.amount%> to complete purchase.
 </tr>
 </table>
 <%if @payment.pos_status.blank? %>
-	<div class="payment_conformation"><%=link_to 'Conform', refund_conformation_info_admin_dashboard_index_path%></div>
+	<div class="payment_confirmation"><%=link_to 'Confirm', refund_confirmation_info_admin_dashboard_index_path%></div>
 <%end%>
 <%session[:refund_payment_id] = nil unless session[:refund_payment_id].nil? || @payment.pos_status.blank?%>
 <%else%>
@@ -62,6 +61,6 @@ $<%=@payment.amount%> to complete purchase.
 </tbody>
 </table>
 <div>
-<div><div class= "list_grid_but"><a href="<%=add_hours_admin_dashboard_index_url%>">Add hours</a></div><div class= "list_grid_but"><%=link_to "Free", add_free_hours_admin_dashboard_index_path%></div></div>
-<div><div class= "list_grid_but"><%=link_to "Remove hours",payment_list_admin_dashboard_index_path%></div><div class= "list_grid_but"><a href="#">Paid</a></div></div>
+<div><div class= "list_grid_but"><a href="<%=add_hours_page_admin_dashboard_index_url%>">Add hours</a></div><div class= "list_grid_but"><%=link_to "Free", add_free_hours_admin_dashboard_index_path%></div></div>
+<div><div class= "list_grid_but"><%=link_to "Remove hours",payment_list_admin_dashboard_index_path%></div><div class= "list_grid_but"><a href="<%=add_hours_admin_dashboard_index_url%>">Paid</a></div></div>
 </div>

@@ -35,9 +35,9 @@ class Admin::DashboardController < ApplicationController
     
   end
 
-  def conform_purchase
+  def confirm_purchase
     case params["selected"]
-    when "conform"
+    when "confirm"
       payment = Payment.new(:payment_type =>session[:payment_option], :flavor => 1, :customer_id => session[:customer_id],:internal_user_id => 1, :amount => session[:hours].split('_')[1].to_i, :location_id => 1)
       if payment.save
         payment.update_column(:minutes, (session[:hours].split('_')[0].to_i*60))
@@ -55,11 +55,11 @@ class Admin::DashboardController < ApplicationController
     end
   end
 
-  def pos_conformation_step
+  def pos_confirmation_step
 
   end
 
-  def pos_conformation
+  def pos_confirmation
     payment = Payment.find(session[:payment])
     customer = Customer.find(session[:customer_id])
     customer.add_remining_minutes(payment.minutes)
@@ -84,9 +84,9 @@ class Admin::DashboardController < ApplicationController
     session[:staff_details] = params["staff_details"]
   end
 
-  def conform_free_hours
+  def confirm_free_hours
     case params["selected"]
-    when "conform"
+    when "confirm"
       payment = Payment.new(:payment_type => 2, :flavor => 1, :customer_id => session[:customer_id], :description => session[:description],
                             :internal_user_id => 1, :amount => 0, :location_id => 1, :staff_details => session[:staff_details])
       if payment.save
@@ -141,9 +141,9 @@ class Admin::DashboardController < ApplicationController
     end
   end
 
-  def conform_refund
+  def confirm_refund
     case params["selected"]
-    when "conform"
+    when "confirm"
       payment = Payment.find(session[:refund_payment_id])
       payment.flavor = Payment::FLAVORS[:cc_refund]
       payment.pos_status = nil
@@ -159,11 +159,11 @@ class Admin::DashboardController < ApplicationController
     end
   end
 
-  def refund_conformation_info
+  def refund_confirmation_info
     @payment = Payment.find(session[:refund_payment_id])
   end
 
-  def refund_conformation_final
+  def refund_confirmation_final
     payment = Payment.find(session[:refund_payment_id])
     payment.pos_status = params["confomation"]
     payment.description = params["description"]
