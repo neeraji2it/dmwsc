@@ -1,0 +1,60 @@
+<div data-role="dialog" data-transition="flip">
+  <div data-role="header" data-theme="c">
+    <h1>Pay Now</h1>    
+  </div>
+
+  <div data-role="content" data-theme="c">
+
+    <%= form_tag url_for(:controller => :bill, :action => :register_confirm), :remote => true, :id => :bundle_form do -%>
+      <div class="payment_errors" style="color:red"></div>
+      <fieldset data-role="fieldcontain">
+        <div class="drill_conform"></div>
+It's easy! <br/>
+1.) CONFIRM below your selection of the bundle you'd like to purchase <br/>
+2.) HAIL someone to your table or just approach the Concierge desk or any register. <br/>
+3.) The staff will take your payment by cash or credit card and update your account. <br/><br/>
+Cart Contents:
+ <fieldset data-role="fieldcontain">
+   <table width="40%"%>
+      <tr><td width="25%"><%=radio_button_tag 'hours_amount', '4_10', :checked => true%></td><td>4hrs for $10</td></tr>
+      <tr><td><%=radio_button_tag 'hours_amount', '10_20'%></td><td>10hrs for $20</td></tr>
+      <tr><td><%=radio_button_tag 'hours_amount', '40_70'%></td><td>40hrs for $70</td></tr>
+   </table>
+<%=submit_tag "Confirm", :class => :submit_button, "data-mini" => :true%>
+</fieldset>
+      </fieldset>
+    <% end %>
+  </div>
+
+<%= javascript_tag do -%>
+  $(document).ready(function() {
+
+
+  function stripeResponseHandler(status, response) {
+        var form$ = $("#payment_form");
+        // token contains id, last4, and card type
+        var token = response['id'];
+        // insert the token into the form so it gets submitted to the server
+        form$.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
+        // and submit
+        // form$.get(0).submit();
+
+
+        $.post(form$.attr('action'), form$.serialize(), 
+          function(data) {
+            // NJS - need to do something w/ the result
+            form$.closest('div[data-role="dialog"]').dialog('close');
+          }
+        );
+    
+  }
+$('.submit_button').click(function(){
+  $('.drill_conform').html('Your bundle completed, plese continue step 2 and 3.')
+});
+});
+$('table tr').click(function(){
+  $(this).find('input').attr("checked", "checked");
+});
+<% end -%>
+
+</div>

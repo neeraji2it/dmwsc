@@ -4,6 +4,18 @@ class BillController < ApplicationController
 
   before_filter :login_required
 
+  def pay_at_register
+
+  end
+
+  def register_confirm
+    @customer.pay_plan = params["hours_amount"]
+    @customer.save
+    respond_to do |format|
+      format.json { }
+    end
+  end
+
   def current_charges
     @customer
 

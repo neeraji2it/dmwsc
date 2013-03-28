@@ -24,7 +24,7 @@ class TimeSheetEntry < ActiveRecord::Base
   end
 
   def cal_remining_minits
-    last_remining_minits = self.time_sheet.time_sheet_entries.where('end_time IS NOT NULL').last.remining_minits
+    last_remining_minits = self.time_sheet.time_sheet_entries.where('end_time IS NOT NULL').last.remining_minits rescue nil
     if last_remining_minits.nil?
         last_payment = self.customer.payments.last
         available_minuts = last_payment.nil? ? 0 : last_payment.minutes

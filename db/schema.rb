@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130327172700) do
+ActiveRecord::Schema.define(:version => 20130328181314) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(:version => 20130327172700) do
     t.datetime "oauth_expires_at"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
+    t.string   "pay_plan"
   end
 
   add_index "customers", ["provider", "uid"], :name => "index_customers_on_provider_and_uid", :unique => true

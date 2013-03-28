@@ -11,11 +11,15 @@ Payment method:<br/>
 <%=radio_button_tag 'payment_option', '1'%> Cash <br/>
 <%=radio_button_tag 'payment_option', '4'%> Credit card <br/>
 
-<%=submit_tag "Continue", :class => "submit_button"%>
+<%=submit_tag "Continue", :class => "admin_submit_button"%>
 <%end%>
-<%unless session[:hours].nil? || session[:payment_option].nil?%>
+
 <script type="text/javascript">
+<%unless session[:hours].nil? || session[:payment_option].nil?%>
 $("#hours_amount_<%=session[:hours]%>").attr("checked", "checked");
 $("#payment_option_<%=session[:payment_option]%>").attr("checked", "checked");
-</script>
 <%end%>
+<%unless @customer.pay_plan.blank?%>
+$("#hours_amount_<%=@customer.pay_plan%>").attr("checked", "checked");
+<%end%>
+</script>
