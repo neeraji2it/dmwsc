@@ -1066,5 +1066,6 @@ body,html{
     width: 175px;}
 .drill_conform{color: red;}
 .staff_input{
-    border: 0px;
+    border: 1px #555 solid;
+    padding: 4px;
 }
