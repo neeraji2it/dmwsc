@@ -1,7 +1,7 @@
-<%unless flash[:alert].nil?%>
-<%=flash[:alert]%>
-<%end%>
 <div class="center_div">
+<%unless flash[:alert].nil?%>
+<div class="error_alert"><%=flash[:alert]%></div>
+<%end%>
 	<h3>Staff Login Panel</h3>
 <%=form_tag admin_session_index_path do %>
 Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : <%=text_field_tag "email"%><br/><br/>

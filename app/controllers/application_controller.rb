@@ -9,6 +9,16 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def check_for_staff
+    if session[:user_id].nil?
+      flash[:alert] = "Login as Staff to access this page"
+      redirect_to new_admin_session_path
+    else
+    
+    end
+  end
+
   def find_customer
     @customer ||= Customer.find(session[:customer_id]) if session[:customer_id]
   end

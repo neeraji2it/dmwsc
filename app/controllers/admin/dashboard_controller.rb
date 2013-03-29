@@ -1,6 +1,7 @@
 class Admin::DashboardController < ApplicationController
   protect_from_forgery
   layout 'admin'
+  before_filter :check_for_staff
 
   # NJS - make sure user is logged in as an internal_user
 
@@ -18,7 +19,7 @@ class Admin::DashboardController < ApplicationController
 
   def customer_dashboard
     session[:customer_id] = params[:id] unless params[:id].nil?
-    @customer = Customer.find(session[:customer_id])
+    find_customer
     @payment = @customer.payments.find(session[:payment]) unless session[:payment].nil? rescue nil
     @payment = @customer.payments.find(session[:free_payment]) unless session[:free_payment].nil? rescue nil
     @payment = @customer.payments.find(session[:refund_payment_id]) unless session[:refund_payment_id].nil? rescue nil
@@ -26,7 +27,7 @@ class Admin::DashboardController < ApplicationController
   end
 
   def add_hours
-    @customer = Customer.find(session[:customer_id]) 
+    find_customer 
   end
 
   def add_hours_info
@@ -78,7 +79,7 @@ class Admin::DashboardController < ApplicationController
   end
 
   def add_free_hours_info
-    @customer = Customer.find(session[:customer_id]) 
+    find_customer
     session[:hours] = params["num_hours"]
     session[:description] = params["description"]
     session[:staff_details] = params["staff_details"]
@@ -172,8 +173,6 @@ class Admin::DashboardController < ApplicationController
       session[:refund_payment] = nil
     redirect_to customer_dashboard_admin_dashboard_index_path
     else
-      p 1111111111
-      p payment.errors
       redirect_to :back
     end
   end

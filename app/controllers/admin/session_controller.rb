@@ -1,7 +1,7 @@
 class Admin::SessionController < ApplicationController
   protect_from_forgery
   layout 'admin'
-
+  before_filter :check_for_staff, :only => :destroy
   # NJS - make sure user is logged in as an internal_user
 
   def new
