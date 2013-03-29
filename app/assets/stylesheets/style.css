@@ -1033,7 +1033,7 @@ body,html{
 .payment_confirmation:hover, .list_grid_but a:hover{background-color: #AAA;}
 .payment_confirmation a{color: white;text-decoration: none;}
 .error_alert{color: red;}
-.admin_submit_button{
+.admin_submit_button,.submit_button{
     background-color: #555;
     cursor: pointer;
     color: white;
@@ -1042,7 +1042,7 @@ body,html{
     font-weight: bold;
     padding: 5px;
 }
-.admin_submit_button:hover{background-color: #AAA;}
+.admin_submit_button:hover,.submit_button:hover{background-color: #AAA;}
 .center_div{padding-left: 35%;padding-right: 35%;padding-top: 20px;}
 .admin_header{width: 100%;
     background-color: #EEEEEE;
