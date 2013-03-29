@@ -59,4 +59,17 @@ function password_check_data(){
         }); 
 }
 
+$('.submit_button').click(function(){
+	if($('#email').val()==''){
+		$('#email').css('border','1px red solid');
+		$('#email').focus();
+		return false;
+	}else if($('#password').val()==''){
+		$('#password').css('border','1px red solid');
+		$('#password').focus();
+		return false;
+	}
+
+});
+
 </script>
