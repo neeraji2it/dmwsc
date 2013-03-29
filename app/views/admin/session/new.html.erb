@@ -4,8 +4,59 @@
 <%end%>
 	<h3>Staff Login Panel</h3>
 <%=form_tag admin_session_index_path do %>
-Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : <%=text_field_tag "email"%><br/><br/>
-Password : <%=text_field_tag "password"%><br/><br/>
+Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : <%=text_field_tag "email",'', :class => 'staff_input'%><br/><br/>
+Password : <%=password_field_tag "password",'', :class => 'staff_input'%><br/><br/>
 <%=submit_tag "Login", :class => "submit_button"%>
 </div>
 <%end%>
+<script type="text/javascript">
+var password_check = false;
+$(document).ready(function(){
+    $('#email').focus(function(){
+        $('#email').blur(function(){
+            var useremail = $(this).val();
+            if(!(validateEmail(useremail)))
+            {
+                $('#email').css({
+                    'background-position':'0 30px',
+                    'border':'1px red solid'
+                });
+            }
+            else
+            {
+            	$('#email').css({
+                    'background-position':'0 30px',
+                    'border':'1px green solid'
+                });
+            }
+        });
+        function validateEmail(email) {
+            var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(email);
+        }
+    });
+});
+
+function password_check_data(){
+           $('#password').blur(function(){
+            var password = $(this).val();
+            if(password=='' || password.length < 8)
+            {
+                $('#password').css({
+                    'background-position':'0 30px',
+                    'border':'1px red solid'
+                });
+                password_check = false;
+            }
+            else
+            {
+            	 $('#password').css({
+                    'background-position':'0 30px',
+                    'border':'1px green solid'
+                });
+                 password_check = true;
+            }
+        }); 
+}
+
+</script>

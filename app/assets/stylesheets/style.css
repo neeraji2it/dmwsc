@@ -1065,3 +1065,6 @@ body,html{
     margin-top: -95px;
     width: 175px;}
 .drill_conform{color: red;}
+.staff_input{
+    border: 0px;
+}

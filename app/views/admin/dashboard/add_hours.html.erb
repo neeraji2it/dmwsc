@@ -8,7 +8,7 @@ Options:<br/>
 
 Payment method:<br/>
 
-<%=radio_button_tag 'payment_option', '1'%> Cash <br/>
+<%=radio_button_tag 'payment_option', '1',:checked => true%> Cash <br/>
 <%=radio_button_tag 'payment_option', '4'%> Credit card <br/>
 
 <%=submit_tag "Continue", :class => "admin_submit_button"%>
@@ -22,4 +22,5 @@ $("#payment_option_<%=session[:payment_option]%>").attr("checked", "checked");
 <%unless @customer.pay_plan.blank?%>
 $("#hours_amount_<%=@customer.pay_plan%>").attr("checked", "checked");
 <%end%>
+
 </script>

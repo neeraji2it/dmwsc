@@ -1,14 +1,25 @@
 <h2>Staff dashboard</h2>
 <%=form_tag add_free_hours_info_admin_dashboard_index_path do%>
-Number of hours: <%=text_field_tag "num_hours"%><br/><br/>
-Reason / comment: <%=text_field_tag "description"%><br/><br/>
-Staff initials: <%=text_field_tag "staff_details"%><br/><br/>
+Number of hours : <%=text_field_tag "num_hours",'', :class => 'staff_input', :placeholder => "Ex:- 6"%><br/><br/>
+Reason / comment : <%=text_field_tag "description",'', :class => 'staff_input', :placeholder => "Enter the comment"%><br/><br/>
+Staff initials : <%=text_field_tag "staff_details",'', :class => 'staff_input', :placeholder => "Staff details"%><br/><br/>
 <%=submit_tag "Submit", :class => "admin_submit_button" %>
 <%end%>
-<%unless session[:hours].nil? || session[:description].nil? || session[:staff_details].nil?%>
+
 <script type="text/javascript">
+<%unless session[:hours].nil? || session[:description].nil? || session[:staff_details].nil?%>
 $("#num_hours").val('<%=session[:hours]%>');
 $("#description").val('<%=session[:description]%>');
 $("#staff_details").val('<%=session[:staff_details]%>');
-</script>
 <%end%>
+$('.admin_submit_button').click(function(){
+	if(/^\d+$/.test($('#num_hours').val())){
+
+	}else{
+		$('#num_hours').css('border','1px red solid');
+		$('#num_hours').focus();
+		return false;
+	}
+
+});
+</script>
