@@ -18,6 +18,7 @@
 <%unless session[:user_id].nil?%>
 <div class="admin_header">
 <%=link_to "Admin Home", "/admin", :class=>"left"%>
+<%=link_to "Customer Dashboard", "/admin/dashboard/customer_dashboard", :class=>"left"%>
 <%=link_to "Logout", "/admin/logout", :class=>"right"%>
 </div>
 <%end%>

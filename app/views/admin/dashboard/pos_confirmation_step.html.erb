@@ -1,6 +1,6 @@
 <h2>Staff dashboard</h2>
 <%=form_tag pos_confirmation_admin_dashboard_index_path do %>
-POS confirmation #: <%=text_field_tag :confomation,'', :class => 'staff_input', :placeholder => 'Enter POS conformation'%><br/><br/>
+POS confirmation <span>*</span> : <%=text_field_tag :confomation,'', :class => 'staff_input', :placeholder => 'Enter POS conformation'%><br/><br/>
 Staff initials: <%=text_field_tag :staf,'', :class => 'staff_input', :placeholder => 'Staff intials'%><br/><br/>
 <%=submit_tag "Submit", :class => "admin_submit_button"%>
 <%end%>
