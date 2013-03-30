@@ -15,7 +15,9 @@ $<%=@payment.amount%> to complete purchase.
 </table>
 <%if @payment.pos_status.blank? && session[:free_payment].nil?%>
 	<div class="payment_confirmation"><%=link_to 'Confirm', pos_confirmation_step_admin_dashboard_index_path%></div>
-<%end%>
+<%else
+session[:payment] = nil
+end%>
 <%session[:free_payment] = nil unless session[:free_payment].nil?%>
 <%else%>
 <%if session[:refund_payment_id]&&session[:refund_payment]&&@payment%>
