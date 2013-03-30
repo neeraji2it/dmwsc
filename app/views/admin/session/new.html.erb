@@ -6,7 +6,7 @@
 <%=form_tag admin_session_index_path do %>
 Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : <%=text_field_tag "email",'', :class => 'staff_input', :placeholder => 'Staff Email.'%><br/><br/>
 Password : <%=password_field_tag "password",'', :class => 'staff_input', :placeholder => 'Staff password.'%><br/><br/>
-<%=submit_tag "Login", :class => "submit_button"%>
+<%=submit_tag "Login", :class => "admin_submit_button"%>
 </div>
 <%end%>
 <script type="text/javascript">
@@ -59,7 +59,7 @@ function password_check_data(){
         }); 
 }
 
-$('.submit_button').click(function(){
+$('.admin_submit_button').click(function(){
 	if($('#email').val()==''){
 		$('#email').css('border','1px red solid');
 		$('#email').focus();
