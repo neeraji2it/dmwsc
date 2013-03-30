@@ -23,8 +23,8 @@ $<%=@payment.amount%> to complete purchase.
 <tr>
 <td><%=@payment.created_at.strftime("%m/%d")%></td>
 <td><%=@payment.created_at.strftime("%I:%M %p")%></td>
-<td class="whide">Removed <%=session[:refund_payment][1].to_i/60%> hrs</td>
-<td><%=@customer.lat_total_in_account/60%> hrs</td>
+<td class="whide">Removed <%=(session[:refund_payment][1].to_i/60).round(2)%> hrs</td>
+<td><%=(@customer.lat_total_in_account/60).round(2)%> hrs</td>
 </tr>
 </table>
 <%if @payment.pos_status.blank? %>
