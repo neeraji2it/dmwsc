@@ -1,7 +1,7 @@
 class Admin::DashboardController < ApplicationController
   protect_from_forgery
   layout 'admin'
-  before_filter :check_for_staff
+  before_filter :check_for_staff, :find_customer
 
   # NJS - make sure user is logged in as an internal_user
 
@@ -89,7 +89,7 @@ class Admin::DashboardController < ApplicationController
     case params["selected"]
     when "confirm"
       payment = Payment.new(:payment_type => 2, :flavor => 1, :customer_id => session[:customer_id], :description => session[:description],
-                            :internal_user_id => 1, :amount => 0, :location_id => 1, :staff_details => session[:staff_details])
+                            :internal_user_id => session[:user_id], :amount => 0, :location_id => 1, :staff_details => session[:staff_details])
       if payment.save
         payment.update_column(:minutes, (session[:hours].to_i*60))
         session[:free_payment] = payment.id
@@ -110,7 +110,7 @@ class Admin::DashboardController < ApplicationController
 
   def payment_list
     customer = Customer.find(session[:customer_id])
-    @availabule_minits = customer.time_sheet_entries.last.remining_minits
+    @availabule_minits = customer.time_sheet_entries.last.remining_minits rescue 0
     @payments = customer.payments
   end
 
@@ -175,6 +175,10 @@ class Admin::DashboardController < ApplicationController
     else
       redirect_to :back
     end
+  end
+
+  def transaction_details
+    @payment = Payment.where(:id => params[:id]).first
   end
 
 end

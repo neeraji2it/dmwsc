@@ -27,14 +27,14 @@ module ApplicationHelper
   end
 
   def payment_type(type)
-    case type
-    when '1'
+    case type.to_s
+    when "1"
       return "Cash"
-    when '2'
+    when "2"
       return "Free"
-    when '3'
+    when "3"
       return "Stripe"
-    when '4'
+    when "4"
       return "Credit Card"
     end
   end
@@ -61,14 +61,19 @@ module ApplicationHelper
     elsif a_minits > 0
       return "#{payment.id}_#{payment.minutes}"
     elsif (a_minits + payment.minutes) > 0
-      return "#{payment.id}_#{a_minits + payment.minutes}"
+      return "#{payment.id}_#{payment.minutes}"
     else
-      return "#{payment.id}_used"
+      return "#{payment.id}_#{payment.minutes}"
     end
   end
 
   def find_refund_amount(tot_amount, tot_time, reming_time)
     req_amount = ((reming_time.to_f / tot_time.to_f) * tot_amount.to_i).round(2)
+  end
+
+  def admin_name(internal_user_id)
+    staff = Admin.where(:id => internal_user_id).first
+    staff.nil? ? "" : staff.first_name
   end
 
 end

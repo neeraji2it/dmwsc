@@ -11,7 +11,7 @@ class Payment < ActiveRecord::Base
   belongs_to :location
   belongs_to :internal_user
 
-  PAY_TYPE ={
+  PAY_TYPE = {
     :CASH => 1,
     :FREE => 2,
     :STRIPE => 3,

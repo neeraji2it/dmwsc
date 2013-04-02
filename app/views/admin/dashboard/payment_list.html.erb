@@ -9,7 +9,7 @@
 <td>Paid</td>
 <td>Payment Method</td>
 <td>Status</td>
-
+<td>Details</td>
 </th>
 </thead>
 <tbody>
@@ -22,6 +22,7 @@
 <td>$<%=payment.amount%></td>
 <td><%=payment_type(payment.payment_type)%></td>
 <td><%=payment_status(payment, @availabule_minits)%></td>
+<td><%=link_to "More...", transaction_details_admin_dashboard_index_path(:id => payment.id)%></td>
 </tr>
 <%end%>
 </tbody>

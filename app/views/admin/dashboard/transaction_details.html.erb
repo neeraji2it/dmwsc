@@ -1,0 +1,12 @@
+Customer Name : <%=@payment.customer.first_name+" "+@payment.customer.last_name%><br/>
+Payment Type : <%=payment_type(@payment.payment_type)%><br/>
+Amount : $<%=@payment.amount%><br/>
+Hours : <%=(@payment.minutes/60).round(2)%> Hrs<br/>
+Details : <%=@payment.description%> <br/>
+Crated On : <%=@payment.created_at.strftime("%m/%d")%><br/>
+Latest Updated By : <%=admin_name(@payment.internal_user_id)%><br/>
+Updated On : <%=@payment.updated_at.strftime("%m/%d")%><br/>
+POS Conformation : <%=@payment.pos_status%><br/>
+Staff Initials : <%=@payment.staff_details%><br/>
+<%=link_to "Back", payment_list_admin_dashboard_index_path%>
+
