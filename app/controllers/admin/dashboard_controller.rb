@@ -1,8 +1,8 @@
 class Admin::DashboardController < ApplicationController
   protect_from_forgery
   layout 'admin'
-  before_filter :check_for_staff, :find_customer
-
+  before_filter :check_for_staff
+  before_filter :find_customer, :except => [:customer_dashboard]
   # NJS - make sure user is logged in as an internal_user
 
   def index
