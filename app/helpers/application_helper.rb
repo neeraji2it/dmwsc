@@ -53,6 +53,16 @@ module ApplicationHelper
     end
   end
 
+  def transaction_status(payment)
+    if payment.amount == 0 && payment.payment_type.to_i == Payment::PAY_TYPE[:FREE]
+      return "Free"
+    elsif payment.flavor == Payment::FLAVORS[:cc_refund]
+      return "Refunded"
+    else
+      return "Purchased"
+    end
+  end
+
   def get_id_for_payment_list(payment, a_minits)
     if payment.amount == 0 && payment.payment_type.to_i == Payment::PAY_TYPE[:FREE]
       return "#{payment.id}_free"

@@ -45,7 +45,14 @@ end%>
 <td>Out</td>
 <td>Duration</td>
 <td>Used</td>
+<td>Added/Removed</td>
+<td>Free/Purchased/Refunded</td>
+<td>Purchase method</td>
+<td>Refunded method</td>
 <td>In Account</td>
+<td>Staff Initials</td>
+<td>Comments</td>
+<td>Pos Conformation</td>
 </th>
 </thead>
 <tbody>
@@ -53,11 +60,18 @@ end%>
 <tr class="<%=i.even? ? "even" : "odd"%>">
 <td></td>
 <td><%=used.created_at.strftime("%m/%d")%></td>
-<td><%=used.start_time.strftime("%I:%M %p")%></td>
+<td><%=used.start_time.strftime("%I:%M %p") rescue "None"%></td>
 <td><%=used.end_time.strftime("%I:%M %p") rescue "None"%></td>
 <td><%=timesheet_duration(used.end_time - used.start_time)  rescue "None"%></td>
 <td><%=timesheet_used(used.end_time - used.start_time)  rescue "None"%></td>
+<td><%=used.added_removed_status%></td>
+<td><%=used.transaction_status%></td>
+<td><%=used.purchase_method%></td>
+<td><%=used.refunded_method%></td>
 <td><%=cal_time_with_minutes(used.remining_minits) rescue "None"%></td>
+<td><%=used.staff_intials%></td>
+<td><%=used.comments%></td>
+<td><%=used.pos_conformation%></td>
 </tr>
 <%end%>
 </tbody>

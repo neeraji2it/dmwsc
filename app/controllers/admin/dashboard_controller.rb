@@ -1,4 +1,5 @@
 class Admin::DashboardController < ApplicationController
+  include ApplicationHelper
   protect_from_forgery
   layout 'admin'
   before_filter :check_for_staff
@@ -23,7 +24,7 @@ class Admin::DashboardController < ApplicationController
     @payment = @customer.payments.find(session[:payment]) unless session[:payment].nil? rescue nil
     @payment = @customer.payments.find(session[:free_payment]) unless session[:free_payment].nil? rescue nil
     @payment = @customer.payments.find(session[:refund_payment_id]) unless session[:refund_payment_id].nil? rescue nil
-    @time_sheets = @customer.time_sheet_entries.except(:order).order('start_time desc')
+    @time_sheets = @customer.time_sheet_entries.except(:order).order('created_at desc')
   end
 
   def add_hours
@@ -42,6 +43,14 @@ class Admin::DashboardController < ApplicationController
       payment = Payment.new(:payment_type =>session[:payment_option], :flavor => 1, :customer_id => session[:customer_id],:internal_user_id => 1, :amount => session[:hours].split('_')[1].to_i, :location_id => 1)
       if payment.save
         payment.update_column(:minutes, (session[:hours].split('_')[0].to_i*60))
+        remining_minits = @customer.add_remining_minutes(payment.minutes)
+        transaction = @customer.time_sheet_entries.build(:added_removed_status =>"Added #{session[:hours].split('_')[0].to_f.round(2)} hrs",
+                                            :purchase_method => payment_type(payment.payment_type),
+                                            :transaction_status => transaction_status(payment),
+                                            :time_sheet_id => @customer.time_sheets.last.id,
+                                            :remining_minits => remining_minits)
+        transaction.save
+        session[:transaction] = transaction.id
         session[:hours], session[:payment_option] = nil, nil
         session[:payment] = payment.id
         redirect_to customer_dashboard_admin_dashboard_index_path
@@ -63,11 +72,14 @@ class Admin::DashboardController < ApplicationController
   def pos_confirmation
     payment = Payment.find(session[:payment])
     customer = Customer.find(session[:customer_id])
-    customer.add_remining_minutes(payment.minutes)
     payment.pos_status = params["confomation"]
     payment.staff_details = params["staf"]
     if payment.save
-      session[:payment] = nil
+      timesheet = @customer.time_sheet_entries.where(:id => session[:transaction]).first
+      timesheet.pos_conformation = params["confomation"]
+      timesheet.staff_intials = params["staf"]
+      timesheet.save
+      session[:payment], session[:transaction] = nil, nil
     redirect_to customer_dashboard_admin_dashboard_index_path
     else
       redirect_to :back
@@ -94,8 +106,15 @@ class Admin::DashboardController < ApplicationController
         payment.update_column(:minutes, (session[:hours].to_i*60))
         session[:free_payment] = payment.id
         customer = Customer.find(session[:customer_id])
-        customer.add_remining_minutes((session[:hours].to_i*60))
-        session[:hours], session[:payment_option] = nil, nil
+        remining_minits = customer.add_remining_minutes((session[:hours].to_i*60))
+        transaction = customer.time_sheet_entries.build(:added_removed_status =>"Added #{session[:hours].split('_')[0].to_f.round(2)} hrs",
+                                                        :purchase_method => payment_type(payment.payment_type),
+                                                        :transaction_status => transaction_status(payment),
+                                                        :time_sheet_id => @customer.time_sheets.last.id,
+                                                        :remining_minits => remining_minits, :comments => session[:description],
+                                                        :staff_intials => session[:staff_details])
+        transaction.save
+        session[:hours], session[:payment_option], session[:staff_details], session[:description]  = nil, nil, nil, nil
         redirect_to customer_dashboard_admin_dashboard_index_path
       else
         redirect_to :back
@@ -150,7 +169,14 @@ class Admin::DashboardController < ApplicationController
       payment.pos_status = nil
       payment.save
       customer = Customer.find(session[:customer_id])
-      customer.add_remining_minutes((-session[:refund_payment][1].to_i))
+      remining_minits = customer.add_remining_minutes((-session[:refund_payment][1].to_i))
+      transaction = customer.time_sheet_entries.build(:added_removed_status =>"Removed #{(session[:refund_payment][1].to_f/60).round(2)} hrs",
+                                                      :refunded_method => payment_type(payment.payment_type),
+                                                      :transaction_status => transaction_status(payment),
+                                                      :time_sheet_id => @customer.time_sheets.last.id,
+                                                      :remining_minits => remining_minits)
+      transaction.save
+      session[:transaction] = transaction.id
       redirect_to customer_dashboard_admin_dashboard_index_path
     when "edit"
       redirect_to payment_list_admin_dashboard_index_path
@@ -170,7 +196,12 @@ class Admin::DashboardController < ApplicationController
     payment.description = params["description"]
     payment.staff_details = params["staff_details"]
     if payment.save
-      session[:refund_payment] = nil
+      timesheet = @customer.time_sheet_entries.where(:id => session[:transaction]).first
+      timesheet.pos_conformation = params["confomation"]
+      timesheet.comments = params["description"]
+      timesheet.staff_intials = params["staff_details"]
+      timesheet.save
+      session[:refund_payment], session[:transaction] = nil, nil
     redirect_to customer_dashboard_admin_dashboard_index_path
     else
       redirect_to :back

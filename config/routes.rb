@@ -99,7 +99,8 @@ Stripetest::Application.routes.draw do
        post :payment_refund
        post :confirm_refund
        get :refund_confirmation_info
-       post :refund_confirmation_finaltransaction_details
+       post :refund_confirmation_final
+       get :transaction_details
        get :transaction_details
       end
     end

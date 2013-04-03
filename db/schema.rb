@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130328181314) do
+ActiveRecord::Schema.define(:version => 20130403152204) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -107,11 +107,18 @@ ActiveRecord::Schema.define(:version => 20130328181314) do
     t.integer  "seat_id"
     t.integer  "internal_user_start_id"
     t.integer  "internal_user_end_id"
-    t.datetime "start_time",                                            :null => false
+    t.datetime "start_time"
     t.datetime "end_time"
     t.datetime "created_at",                                            :null => false
     t.datetime "updated_at",                                            :null => false
     t.decimal  "remining_minits",        :precision => 10, :scale => 0
+    t.string   "added_removed_status"
+    t.string   "transaction_status"
+    t.string   "purchase_method"
+    t.string   "refunded_method"
+    t.string   "staff_intials"
+    t.string   "comments"
+    t.string   "pos_conformation"
   end
 
   create_table "time_sheets", :force => true do |t|

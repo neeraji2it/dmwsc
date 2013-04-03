@@ -4,6 +4,7 @@ Amount : $<%=@payment.amount%><br/>
 Hours : <%=(@payment.minutes/60).round(2)%> Hrs<br/>
 Details : <%=@payment.description%> <br/>
 Crated On : <%=@payment.created_at.strftime("%m/%d")%><br/>
+Transaction Status : <%=payment_status(@payment, params["available_minutes"].to_i)%><br/>
 Latest Updated By : <%=admin_name(@payment.internal_user_id)%><br/>
 Updated On : <%=@payment.updated_at.strftime("%m/%d")%><br/>
 POS Conformation : <%=@payment.pos_status%><br/>

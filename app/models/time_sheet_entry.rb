@@ -2,7 +2,9 @@ class TimeSheetEntry < ActiveRecord::Base
   class SeatTaken < StandardError  
   end
 
-  attr_accessible :start_time, :end_time
+  attr_accessible :start_time, :end_time, :added_removed_status, :transaction_status, :refunded_method,
+                  :staff_intials, :comments, :pos_conformation, :time_sheet_id, :remining_minits,
+                  :purchase_method, :comments
 
   belongs_to :time_sheet
   belongs_to :internal_user_start, :class_name => "InternalUser", :foreign_key => "internal_user_start_id"
