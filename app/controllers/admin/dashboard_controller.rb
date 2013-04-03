@@ -40,7 +40,7 @@ class Admin::DashboardController < ApplicationController
   def confirm_purchase
     case params["selected"]
     when "confirm"
-      payment = Payment.new(:payment_type =>session[:payment_option], :flavor => 1, :customer_id => session[:customer_id],:internal_user_id => 1, :amount => session[:hours].split('_')[1].to_i, :location_id => 1)
+      payment = Payment.new(:payment_type =>session[:payment_option], :flavor => 1, :customer_id => session[:customer_id],:internal_user_id => session[:user_id], :amount => session[:hours].split('_')[1].to_i, :location_id => 1)
       if payment.save
         payment.update_column(:minutes, (session[:hours].split('_')[0].to_i*60))
         remining_minits = @customer.add_remining_minutes(payment.minutes)
@@ -201,7 +201,7 @@ class Admin::DashboardController < ApplicationController
       timesheet.comments = params["description"]
       timesheet.staff_intials = params["staff_details"]
       timesheet.save
-      session[:refund_payment], session[:transaction] = nil, nil
+      session[:refund_payment], session[:transaction], session[:refund_payment_id] = nil, nil, nil
     redirect_to customer_dashboard_admin_dashboard_index_path
     else
       redirect_to :back
