@@ -56,7 +56,7 @@ class Customer < ActiveRecord::Base
   def current_charges
     cts = current_time_sheet
     if cts && cts.is_open?
-      cts.calculate_charge
+      cts.calculate_charge rescue (0.0).to_d
     else
       (0.0).to_d
     end

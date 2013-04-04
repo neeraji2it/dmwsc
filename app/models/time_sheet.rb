@@ -108,7 +108,7 @@ class TimeSheet < ActiveRecord::Base
       end_time = time_sheet_entries.last.end_time
     end
 
-    end_time - time_sheet_entries.first.start_time    
+    end_time - time_sheet_entries.first.start_time rescue 0  
   end
 
   # NJS - should probably be protected

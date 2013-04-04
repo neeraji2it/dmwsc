@@ -23,9 +23,9 @@
     <% @line_items.each do |li| %>
       <tr>
         <% if li.kind_of? TimeSheet %>
-          <td><%= li.start_time.strftime("%-m/%-d") -%></td>
-          <td><%= li.start_time.strftime("%l:%M%P") -%></td>
-          <td><%= li.is_open? ? '<div class="paying_indicator"></div>'.html_safe : li.end_time.strftime("%l:%M%P") -%></td>
+          <td><%= li.start_time.strftime("%-m/%-d") rescue "" -%></td>
+          <td><%= li.start_time.strftime("%l:%M%P") rescue "" -%></td>
+          <td><%= li.is_open? ? '<div class="paying_indicator"></div>'.html_safe : li.end_time.strftime("%l:%M%P") rescue "" -%></td>
           <td>
             <%= mm, ss = li.total_time.divmod(60)
                 hh, mm = mm.divmod(60)

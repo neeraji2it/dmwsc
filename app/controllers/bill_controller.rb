@@ -41,7 +41,7 @@ class BillController < ApplicationController
     # @line_items.reject! do |li|
     #   (li.kind_of? TimeSheet) && (!li.has_charges?)
     # end
-
+    begin 
     @line_items.sort_by! do |li|
       if (li.kind_of? TimeSheet)
         # has charges at this point
@@ -53,6 +53,8 @@ class BillController < ApplicationController
         raise "not a known time of line item"
       end
     end
+  rescue
+  end
 
     # NJS - previous balance stuff. Put back in later
     # @line_items << @customer.current_charges
