@@ -47,7 +47,7 @@ class Admin::DashboardController < ApplicationController
         transaction = @customer.time_sheet_entries.build(:added_removed_status =>"Added #{session[:hours].split('_')[0].to_f.round(2)} hrs",
                                             :purchase_method => payment_type(payment.payment_type),
                                             :transaction_status => transaction_status(payment),
-                                            :time_sheet_id => @customer.time_sheets.last.id,
+                                            :time_sheet_id => create_or_find_time_sheet,
                                             :remining_minits => remining_minits)
         transaction.save
         session[:transaction] = transaction.id
@@ -110,7 +110,7 @@ class Admin::DashboardController < ApplicationController
         transaction = customer.time_sheet_entries.build(:added_removed_status =>"Added #{session[:hours].split('_')[0].to_f.round(2)} hrs",
                                                         :purchase_method => payment_type(payment.payment_type),
                                                         :transaction_status => transaction_status(payment),
-                                                        :time_sheet_id => @customer.time_sheets.last.id,
+                                                        :time_sheet_id => create_or_find_time_sheet,
                                                         :remining_minits => remining_minits, :comments => session[:description],
                                                         :staff_intials => session[:staff_details])
         transaction.save
@@ -173,7 +173,7 @@ class Admin::DashboardController < ApplicationController
       transaction = customer.time_sheet_entries.build(:added_removed_status =>"Removed #{(session[:refund_payment][1].to_f/60).round(2)} hrs",
                                                       :refunded_method => payment_type(payment.payment_type),
                                                       :transaction_status => transaction_status(payment),
-                                                      :time_sheet_id => @customer.time_sheets.last.id,
+                                                      :time_sheet_id => create_or_find_time_sheet,
                                                       :remining_minits => remining_minits)
       transaction.save
       session[:transaction] = transaction.id
@@ -210,6 +210,17 @@ class Admin::DashboardController < ApplicationController
 
   def transaction_details
     @payment = Payment.where(:id => params[:id]).first
+  end
+
+  private
+
+  def create_or_find_time_sheet
+    timesheet = @customer.time_sheets.last
+    if timesheet.nil?
+      timesheet = @customer.time_sheets.build
+      timesheet.save
+    end
+    timesheet.id
   end
 
 end
