@@ -8,13 +8,15 @@ gem 'rails', '3.2.12'
 # commented out because don't need it for this project
 #gem 'sqlite3'
 
+gem "less-rails"
+gem "twitter-bootstrap-rails"
 # added for Heroku
 group :development do
   gem 'mysql2'
 end
 
 group :production do
-  gem 'therubyracer-heroku', '0.8.1.pre3'
+  # gem 'therubyracer-heroku'
   gem 'pg'
 end
 
@@ -25,7 +27,7 @@ gem 'json', '~>1.7.7'
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
-
+  gem 'therubyracer', :platforms => :ruby 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
 

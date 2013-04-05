@@ -37,28 +37,27 @@ end%>
 <h3><%=@customer.first_name+" "+@customer.last_name %> – Usage Summary</h3>
 <%end%>
 <%end%>
-<table class="usage_summary">
+<table class="table table-hover">
 <thead>
-<th>
-<td>Date</td>
-<td>In</td>
-<td>Out</td>
-<td>Duration</td>
-<td>Used</td>
-<td>Added/Removed</td>
-<td>Free/Purchased/Refunded</td>
-<td>Purchase method</td>
-<td>Refunded method</td>
-<td>In Account</td>
-<td>Staff Initials</td>
-<td>Comments</td>
-<td>Pos Conformation</td>
-</th>
+<tr>
+<th>Date</th>
+<th>In</th>
+<th>Out</th>
+<th>Duration</th>
+<th>Used</th>
+<th>Added/Removed</th>
+<th>Free/Purchased/Refunded</th>
+<th>Purchase method</th>
+<th>Refunded method</th>
+<th>In Account</th>
+<th>Staff Initials</th>
+<th>Comments</th>
+<th>Pos Conformation</th>
+</tr>
 </thead>
 <tbody>
 <%@time_sheets.each_with_index do |used,i|%>
 <tr class="<%=i.even? ? "even" : "odd"%>">
-<td></td>
 <td><%=used.created_at.strftime("%m/%d")%></td>
 <td><%=used.start_time.strftime("%I:%M %p") rescue "None"%></td>
 <td><%=used.end_time.strftime("%I:%M %p") rescue "None"%></td>
@@ -77,6 +76,6 @@ end%>
 </tbody>
 </table>
 <div>
-<div><div class= "list_grid_but"><a href="<%=add_hours_page_admin_dashboard_index_url%>">Add hours</a></div><div class= "list_grid_but"><%=link_to "Free", add_free_hours_admin_dashboard_index_path%></div></div>
-<div><div class= "list_grid_but"><%=link_to "Remove hours",payment_list_admin_dashboard_index_path%></div><div class= "list_grid_but"><a href="<%=add_hours_admin_dashboard_index_url%>">Paid</a></div></div>
+<div><div class= "list_grid_but"><a href="<%=add_hours_page_admin_dashboard_index_url%>" class="btn btn-large btn-primary">Add hours</a></div><div class= "list_grid_but"><%=link_to "Free", add_free_hours_admin_dashboard_index_path, :class => "btn btn-large btn-primary"%></div></div>
+<div><div class= "list_grid_but"><%=link_to "Remove hours",payment_list_admin_dashboard_index_path, :class => "btn btn-large btn-primary"%></div><div class= "list_grid_but"><a href="<%=add_hours_admin_dashboard_index_url%>" class="btn btn-large btn-primary">Paid</a></div></div>
 </div>

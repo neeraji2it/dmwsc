@@ -9,5 +9,5 @@ Latest Updated By : <%=admin_name(@payment.internal_user_id)%><br/>
 Updated On : <%=@payment.updated_at.strftime("%m/%d")%><br/>
 POS Conformation : <%=@payment.pos_status%><br/>
 Staff Initials : <%=@payment.staff_details%><br/>
-<%=link_to "Back", payment_list_admin_dashboard_index_path%>
+<%=link_to "Back", payment_list_admin_dashboard_index_path, :class => "btn btn-large btn-primary"%>
 

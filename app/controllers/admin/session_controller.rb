@@ -18,6 +18,9 @@ class Admin::SessionController < ApplicationController
       flash[:alert] = "Email or password are invalid."
       render :new
     end
+  else
+    flash[:alert] = "Please enter Email and password."
+    render :new
   end
   end
 

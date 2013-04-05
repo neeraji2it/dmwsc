@@ -3,7 +3,7 @@
 <%=@payment.payment_type == Payment::PAY_TYPE[:STRIPE] ? "Stripe refund" : "POS refund"%> confirmation <span>*</span> : <%=text_field_tag :confomation,'', :class => 'staff_input', :placeholder => "Enter #{@payment.payment_type == Payment::PAY_TYPE[:STRIPE] ? 'Stripe refund' : 'POS refund'}"%><br/><br/>
 Reason / comment : <%=text_field_tag "description",'', :class => 'staff_input', :placeholder => 'Comment'%><br/><br/>
 Staff initials : <%=text_field_tag "staff_details",'', :class => 'staff_input', :placeholder => 'Staff initials'%><br/><br/>
-<%=submit_tag "Submit", :class => "admin_submit_button"%>
+<%=submit_tag "Submit", :class => "admin_submit_button btn btn-large btn-primary"%>
 <%end%>
 <script type="text/javascript">
 $('.admin_submit_button').click(function(){

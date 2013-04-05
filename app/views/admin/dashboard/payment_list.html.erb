@@ -1,16 +1,17 @@
 <h2>Staff dashboard</h2>
 <div class="error_alert"><%=flash[:alert] unless flash[:alert].nil? %></div>
 <%=form_tag payment_refund_admin_dashboard_index_path, :class => "pay_ment_form" do%>
-<table class="payment_summary">
+<table class="table table-hover">
 <thead>
-<th>
-<td>Date</td>
-<td>Hours</td>
-<td>Paid</td>
-<td>Payment Method</td>
-<td>Status</td>
-<td>Details</td>
-</th>
+<tr>
+<th></th>
+<th>Date</th>
+<th>Hours</th>
+<th>Paid</th>
+<th>Payment Method</th>
+<th>Status</th>
+<th>Details</th>
+</tr>
 </thead>
 <tbody>
 <%@payments.each do |payment|%>
