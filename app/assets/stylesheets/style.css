@@ -1024,14 +1024,11 @@ body,html{
 .usage_summary .odd {background-color:  #FFF;}
 .payment_summary tr:hover{background-color:  #FFF;cursor: pointer;}
 .payment_confirmation{
-    padding: 4px;
-    background-color: #555;
     float: right;
-    margin-right: 55%;
-    margin-top: -25px;
+    margin-right: 33%;
+    margin-top: -30px;
     }
-.payment_confirmation:hover, .list_grid_but a:hover{background-color: #AAA;}
-.payment_confirmation a{color: white;text-decoration: none;}
+.list_grid_but a:hover{background-color: #AAA;}
 .error_alert{color: red;}
 .admin_submit_button{
     background-color: #555;
