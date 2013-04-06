@@ -4,7 +4,7 @@ class TimeSheet < ActiveRecord::Base
 
   attr_accessible :start_time, :end_time
 
-  has_many :time_sheet_entries, :order => "created_at ASC"
+  has_many :time_sheet_entries, :order => "created_at ASC", :dependent => :destroy
   has_one :seat_reservation
   belongs_to :customer
 
