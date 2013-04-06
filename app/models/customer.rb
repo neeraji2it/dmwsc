@@ -97,8 +97,11 @@ class Customer < ActiveRecord::Base
       last_time_sheet_entry.remining_minits = m 
       end
       # last_time_sheet_entry.save
+      return last_time_sheet_entry.remining_minits if last_time_sheet_entry
+    else
+      return m
     end
-    last_time_sheet_entry.remining_minits if last_time_sheet_entry
+    
   end
 
   #Caliculate remining refundable minutes
