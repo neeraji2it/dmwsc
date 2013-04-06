@@ -42,11 +42,11 @@
         <% elsif li.kind_of? Payment %>
           <td><%= li.created_at.strftime("%-m/%-d") -%></td>
           <td><%= li.created_at.strftime("%l:%M%P") -%></td>
-          <td>payment</td>
-          <td colspan="2" class="currency"><%= number_to_currency(-1 * li.amount) -%></td>
+          <td><%=li.flavor == 2 ? "refund" : "payment" %></td>
+          <td colspan="2" class="currency"><%=li.flavor == 2 ? number_to_currency(1 * li.amount) : number_to_currency(-1 * li.amount) -%></td>
           <td class="currency">
             <%=
-               balance += li.amount
+               balance += li.amount if li.flavor == 1
                number_to_currency(balance)
              %></td>
         <% elsif li.kind_of? Fixnum %>

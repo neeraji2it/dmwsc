@@ -32,7 +32,11 @@ class TimeSheetEntry < ActiveRecord::Base
         available_minuts = last_payment.nil? ? 0 : last_payment.minutes
         self.remining_minits = available_minuts - (self.time_sheet.total_time / 60)
     else
+        begin
         self.remining_minits =  last_remining_minits - (((self.end_time - self.start_time) / 60) % 60)
+      rescue
+        self.remining_minits =  last_remining_minits
+      end
     end
   end
 

@@ -30,7 +30,7 @@ end%>
 </tr>
 </table>
 <%if @payment.pos_status.blank? %>
-	<div class="payment_confirmation"><%=link_to 'Confirm', refund_confirmation_info_admin_dashboard_index_path%></div>
+	<div class="payment_confirmation"><%=link_to 'Confirm', refund_confirmation_info_admin_dashboard_index_path, :class => "btn btn-primary"%></div>
 <%end%>
 <%session[:refund_payment_id] = nil unless session[:refund_payment_id].nil? || @payment.pos_status.blank?%>
 <%else%>

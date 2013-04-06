@@ -73,7 +73,7 @@ class Customer < ActiveRecord::Base
   alias_method :currently_checked_in?, :current_time_sheet_entry
   
   def total_paid
-    self.payments.inject(0){|total, p| total + p.amount}
+    self.payments.where(:flavor => [1, 3, 4]).inject(0){|total, p| total + p.amount}
   end
 
   # only takes charges for bills that are closed out
