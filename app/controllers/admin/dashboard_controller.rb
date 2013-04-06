@@ -129,7 +129,7 @@ class Admin::DashboardController < ApplicationController
 
   def payment_list
     customer = Customer.find(session[:customer_id])
-    @availabule_minits = customer.time_sheet_entries.last.remining_minits rescue 0
+    @availabule_minits = customer.time_sheet_entries.where("remining_minits NOT NULL").last.remining_minits rescue 0
     @payments = customer.payments
   end
 
