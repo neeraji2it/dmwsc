@@ -11,9 +11,9 @@ class BillController < ApplicationController
   def register_confirm
     @customer.pay_plan = params["hours_amount"]
     @customer.save
-    respond_to do |format|
-      format.json { }
-    end
+    session[:redirect_home]=true
+    # current_bill
+    # redirect_to root_path
   end
 
   def current_charges

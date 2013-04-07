@@ -1,0 +1,22 @@
+<div data-role="dialog" data-transition="flip">
+  <div data-role="header" data-theme="c">
+    <h1>Pay Now</h1>    
+  </div>
+
+  <div data-role="content" data-theme="c">
+
+    <%= form_tag url_for(:controller => :bill, :action => :register_confirm), :remote => true, :id => :bundle_form do -%>
+      <div class="payment_errors" style="color:red"></div>
+      <fieldset data-role="fieldcontain">
+        <div class="drill_conform">Your bundle completed, plese continue step 2 and 3.</div>
+      </fieldset>
+    <% end %>
+  </div>
+
+<%= javascript_tag do -%>
+  $(document).ready(function() {
+window.location.href = '/';
+});
+<% end -%>
+
+</div>
