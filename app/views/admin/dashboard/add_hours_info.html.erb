@@ -1,5 +1,5 @@
 <h2>Staff dashboard</h2>
-Purchase <%=session[:hours].split('_')[0] unless session[:hours].nil?%> hours for $<%=session[:hours].split('_')[1] unless session[:hours].nil?%> using cash<br/>
+Purchase <%=session[:hours].split('_')[0] unless session[:hours].nil?%> hours for $<%=session[:hours].split('_')[1] unless session[:hours].nil?%> using <%=session[:payment_option] == '1' ? "Cash" : "Credit card"%><br/>
 <div class= "list_grid_but list_buttons"><%=link_to "Confirm",confirm_purchase_admin_dashboard_index_path(:selected => "confirm"), :class => "btn btn-large btn-primary"%></div>
 <div class= "list_grid_but list_buttons"><%=link_to "Edit",confirm_purchase_admin_dashboard_index_path(:selected => "edit"), :class => "btn btn-large btn-primary"%></div>
 <div class= "list_grid_but list_buttons"><%=link_to "Cancel",confirm_purchase_admin_dashboard_index_path(:selected => "cancel"), :class => "btn btn-large btn-primary"%></div>

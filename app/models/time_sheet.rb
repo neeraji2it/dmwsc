@@ -44,8 +44,9 @@ class TimeSheet < ActiveRecord::Base
       iu = InternalUser.find(iu)
     end
 
-    tse = time_sheet_entries.last
+    tse = time_sheet_entries.where("start_time IS NOT NULL").last
     tse.end_time = Time.now
+    tse.created_at = Time.now
     tse.internal_user_end = iu
     tse.cal_remining_minits
     tse.save!

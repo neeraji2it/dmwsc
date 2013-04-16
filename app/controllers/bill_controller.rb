@@ -66,7 +66,6 @@ class BillController < ApplicationController
 
   def visit_summary
     @time_sheet = @customer.time_sheets.last
-
     render "bill/visit_summary", :layout => nil
   end
 

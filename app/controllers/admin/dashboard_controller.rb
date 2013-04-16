@@ -31,6 +31,11 @@ class Admin::DashboardController < ApplicationController
     find_customer 
   end
 
+  def add_hours_page
+    find_customer 
+    ts = @customer.current_time_sheet || TimeSheet.check_in(@customer)
+  end
+
   def add_hours_info
     session[:hours] = params["hours_amount"]
     session[:payment_option] = params["payment_option"]

@@ -1,6 +1,6 @@
 <%= render :partial => "layouts/flash_notices" %>
 
-<p>You current balance is <strong><span id="my_bill_balance"><%= number_to_currency(@customer.balance * -1.0) -%></span></strong></p>
+<p>You current balance is <strong><span id="my_bill_balance"><%= number_to_currency(@customer.balance * 1.0) -%></span></strong></p>
 <a data-rel="dialog" href="<%= url_for :controller => :bill, :action => :index -%>" data-role="button" data-mini="true" data-inline="true" data-theme="c">Pay Now</a>
 
 <div data-role="collapsible-set" data-theme="c" data-content-theme="c">
@@ -19,7 +19,7 @@
     </tr>
   </thead>
   <tbody>
-    <% balance = @customer.balance * -1.0 %>
+    <% balance = @customer.balance %>
     <% @line_items.each do |li| %>
       <tr>
         <% if li.kind_of? TimeSheet %>
@@ -35,7 +35,7 @@
           <td class="currency"><%= number_to_currency(li.is_open? ? li.calculate_charge : li.charge) -%></td>
           <td class="currency">
             <%=
-               balance -= (li.is_open? ? li.calculate_charge : li.charge)
+               balance += (li.is_open? ? li.calculate_charge : li.charge)
                number_to_currency(balance)
              %>
           </td>
@@ -46,7 +46,7 @@
           <td colspan="2" class="currency"><%=li.flavor == 2 ? number_to_currency(1 * li.amount) : number_to_currency(-1 * li.amount) -%></td>
           <td class="currency">
             <%=
-               balance += li.amount if li.flavor == 1
+               balance -= li.amount if li.flavor == 1
                number_to_currency(balance)
              %></td>
         <% elsif li.kind_of? Fixnum %>

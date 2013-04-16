@@ -42,6 +42,15 @@ class Customer < ActiveRecord::Base
       nil
     end
   end
+  
+  def checkout_time_sheet
+    ctse = checkout_time_sheet_entry
+    if ctse
+      ctse.time_sheet
+    else
+      nil
+    end
+  end
 
   def current_seat_reservation
     last_seat_reservation = seat_reservations.last
@@ -63,7 +72,7 @@ class Customer < ActiveRecord::Base
   end
 
   def current_time_sheet_entry
-    last_time_sheet_entry = time_sheet_entries.last
+    last_time_sheet_entry = time_sheet_entries.last#where("start_time IS NOT NULL").last
     if last_time_sheet_entry && last_time_sheet_entry.end_time.blank?
       last_time_sheet_entry
     else
@@ -72,6 +81,15 @@ class Customer < ActiveRecord::Base
   end
   alias_method :currently_checked_in?, :current_time_sheet_entry
   
+  def checkout_time_sheet_entry
+    last_time_sheet_entry = time_sheet_entries.where("start_time IS NOT NULL").last
+    if last_time_sheet_entry && last_time_sheet_entry.end_time.blank?
+      last_time_sheet_entry
+    else
+      nil
+    end
+  end
+
   def total_paid
     self.payments.where(:flavor => [1, 3, 4]).inject(0){|total, p| total + p.amount}
   end

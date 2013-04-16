@@ -58,7 +58,7 @@ class TimeSheetController < ApplicationController
   def check_in
     # don't check in again if customer is already checked in
     ts = @customer.current_time_sheet || TimeSheet.check_in(@customer)
-#    ts = TimeSheet.check_in(@customer)
+    #    ts = TimeSheet.check_in(@customer)
 
     respond_to do |format|
       format.json { render json: {status: ts.id}}      
@@ -67,7 +67,7 @@ class TimeSheetController < ApplicationController
 
   def check_out
     # NJS - make sure the customer even has a current time sheet
-    ts = @customer.current_time_sheet
+    ts = @customer.checkout_time_sheet
     ts.check_out
 
     respond_to do |format|
